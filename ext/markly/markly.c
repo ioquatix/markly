@@ -1178,9 +1178,9 @@ __attribute__((visibility("default"))) void Init_markly() {
   rb_Markly_Parser = rb_define_class_under(rb_Markly, "Parser", rb_cObject);
 	rb_define_alloc_func(rb_Markly_Parser, rb_Markly_Parser_alloc);
 	rb_define_method(rb_Markly_Parser, "initialize", rb_Markly_Parser_initialize, 1);
-	rb_define_method(rb_Markly_Node, "enable", rb_Markly_Parser_enable, 1);
-	rb_define_method(rb_Markly_Node, "parse", rb_Markly_Parser_enable, 1);
-	rb_define_method(rb_Markly_Node, "root", rb_Markly_Parser_root, 0);
+	rb_define_method(rb_Markly_Parser, "enable", rb_Markly_Parser_enable, 1);
+	rb_define_method(rb_Markly_Parser, "parse", rb_Markly_Parser_parse, 1);
+	rb_define_method(rb_Markly_Parser, "root", rb_Markly_Parser_root, 0);
 	
   rb_Markly_Node = rb_define_class_under(rb_Markly, "Node", rb_cObject);
   rb_define_singleton_method(rb_Markly_Node, "new", rb_node_new, 1);
