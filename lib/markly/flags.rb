@@ -10,7 +10,7 @@ module Markly
 	UNSAFE = 1 << 17
 
 	# Renderer Flags
-	SOURCE_POSTIONS = 1 << 1
+	SOURCE_POSITION = 1 << 1
 	HARD_BREAKS = 1 << 2
 	NO_BREAKS = 1 << 4
 	GITHUB_PRE_LANG = 1 << 11

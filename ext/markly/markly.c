@@ -149,12 +149,12 @@ static VALUE rb_Markly_Parser_initialize(VALUE self, VALUE flags) {
 static VALUE rb_Markly_Parser_enable(VALUE self, VALUE extension) {
 	cmark_parser *parser = NULL;
 	
-	StringValue(extension);
+	VALUE extension_name = rb_sym2str(extension);
 	
 	TypedData_Get_Struct(self, cmark_parser, &rb_Markly_Parser_Type, parser);
 	
 	cmark_syntax_extension *syntax_extension =
-		cmark_find_syntax_extension(StringValueCStr(extension));
+		cmark_find_syntax_extension(StringValueCStr(extension_name));
 		
 	if (!syntax_extension) {
 		rb_raise(rb_eArgError, "extension %s not found", StringValueCStr(extension));
@@ -290,7 +290,7 @@ static VALUE rb_node_get_string_content(VALUE self) {
  *
  * string - A {String} containing new content.
  *
- * Raises NodeError if the string content can't be set.
+ * Raises Error if the string content can't be set.
  */
 static VALUE rb_node_set_string_content(VALUE self, VALUE s) {
   char *text;
@@ -395,12 +395,12 @@ static VALUE rb_node_get_type(VALUE self) {
   return symbol;
 }
 
-/*
- * Public: Fetches the sourcepos of the node.
+/*	
+ * Public: Fetches the source_position of the node.
  *
  * Returns a {Hash} containing {Symbol} keys of the positions.
  */
-static VALUE rb_node_get_sourcepos(VALUE self) {
+static VALUE rb_node_get_source_position(VALUE self) {
   int start_line, start_column, end_line, end_column;
   VALUE result;
 
@@ -478,13 +478,12 @@ static VALUE rb_node_next(VALUE self) {
  * sibling - A sibling {Node} to insert.
  *
  * Returns `true` if successful.
- * Raises NodeError if the node can't be inserted.
+ * Raises Error if the node can't be inserted.
  */
 static VALUE rb_node_insert_before(VALUE self, VALUE sibling) {
   cmark_node *node1, *node2;
-  Data_Get_Struct(self, cmark_node, node1);
-
-  Data_Get_Struct(sibling, cmark_node, node2);
+	TypedData_Get_Struct(self, cmark_node, &rb_Markly_Node_Type, node1);
+	TypedData_Get_Struct(sibling, cmark_node, &rb_Markly_Node_Type, node2);
 
   if (!cmark_node_insert_before(node1, node2)) {
     rb_raise(rb_Markly_Error, "could not insert before");
@@ -602,13 +601,12 @@ static VALUE rb_render_plaintext(int argc, VALUE *argv, VALUE self) {
  * sibling - A sibling {Node} to insert.
  *
  * Returns `true` if successful.
- * Raises NodeError if the node can't be inserted.
+ * Raises Error if the node can't be inserted.
  */
 static VALUE rb_node_insert_after(VALUE self, VALUE sibling) {
   cmark_node *node1, *node2;
-  Data_Get_Struct(self, cmark_node, node1);
-
-  Data_Get_Struct(sibling, cmark_node, node2);
+	TypedData_Get_Struct(self, cmark_node, &rb_Markly_Node_Type, node1);
+	TypedData_Get_Struct(sibling, cmark_node, &rb_Markly_Node_Type, node2);
 
   if (!cmark_node_insert_after(node1, node2)) {
     rb_raise(rb_Markly_Error, "could not insert after");
@@ -623,13 +621,12 @@ static VALUE rb_node_insert_after(VALUE self, VALUE sibling) {
  * child - A child {Node} to insert.
  *
  * Returns `true` if successful.
- * Raises NodeError if the node can't be inserted.
+ * Raises Error if the node can't be inserted.
  */
 static VALUE rb_node_prepend_child(VALUE self, VALUE child) {
   cmark_node *node1, *node2;
-  Data_Get_Struct(self, cmark_node, node1);
-
-  Data_Get_Struct(child, cmark_node, node2);
+	TypedData_Get_Struct(self, cmark_node, &rb_Markly_Node_Type, node1);
+	TypedData_Get_Struct(child, cmark_node, &rb_Markly_Node_Type, node2);
 
   if (!cmark_node_prepend_child(node1, node2)) {
     rb_raise(rb_Markly_Error, "could not prepend child");
@@ -644,13 +641,12 @@ static VALUE rb_node_prepend_child(VALUE self, VALUE child) {
  * child - A child {Node} to insert.
  *
  * Returns `true` if successful.
- * Raises NodeError if the node can't be inserted.
+ * Raises Error if the node can't be inserted.
  */
 static VALUE rb_node_append_child(VALUE self, VALUE child) {
   cmark_node *node1, *node2;
-  Data_Get_Struct(self, cmark_node, node1);
-
-  Data_Get_Struct(child, cmark_node, node2);
+	TypedData_Get_Struct(self, cmark_node, &rb_Markly_Node_Type, node1);
+	TypedData_Get_Struct(child, cmark_node, &rb_Markly_Node_Type, node2);
 
   if (!cmark_node_append_child(node1, node2)) {
     rb_raise(rb_Markly_Error, "could not append child");
@@ -702,7 +698,7 @@ static VALUE rb_node_previous(VALUE self) {
  * Public: Gets the URL of the current node (must be a `:link` or `:image`).
  *
  * Returns a {String}.
- * Raises a NodeError if the URL can't be retrieved.
+ * Raises a Error if the URL can't be retrieved.
  */
 static VALUE rb_node_get_url(VALUE self) {
   const char *text;
@@ -722,7 +718,7 @@ static VALUE rb_node_get_url(VALUE self) {
  *
  * url - A {String} representing the new URL
  *
- * Raises a NodeError if the URL can't be set.
+ * Raises a Error if the URL can't be set.
  */
 static VALUE rb_node_set_url(VALUE self, VALUE url) {
   cmark_node *node;
@@ -743,7 +739,7 @@ static VALUE rb_node_set_url(VALUE self, VALUE url) {
  * Public: Gets the title of the current node (must be a `:link` or `:image`).
  *
  * Returns a {String}.
- * Raises a NodeError if the title can't be retrieved.
+ * Raises a Error if the title can't be retrieved.
  */
 static VALUE rb_node_get_title(VALUE self) {
   const char *text;
@@ -763,7 +759,7 @@ static VALUE rb_node_get_title(VALUE self) {
  *
  * title - A {String} representing the new title
  *
- * Raises a NodeError if the title can't be set.
+ * Raises a Error if the title can't be set.
  */
 static VALUE rb_node_set_title(VALUE self, VALUE title) {
   char *text;
@@ -784,7 +780,7 @@ static VALUE rb_node_set_title(VALUE self, VALUE title) {
  * Public: Gets the header level of the current node (must be a `:header`).
  *
  * Returns a {Number} representing the header level.
- * Raises a NodeError if the header level can't be retrieved.
+ * Raises a Error if the header level can't be retrieved.
  */
 static VALUE rb_node_get_header_level(VALUE self) {
   int header_level;
@@ -805,7 +801,7 @@ static VALUE rb_node_get_header_level(VALUE self) {
  *
  * level - A {Number} representing the new header level
  *
- * Raises a NodeError if the header level can't be set.
+ * Raises a Error if the header level can't be set.
  */
 static VALUE rb_node_set_header_level(VALUE self, VALUE level) {
   int l;
@@ -826,7 +822,7 @@ static VALUE rb_node_set_header_level(VALUE self, VALUE level) {
  * Public: Gets the list type of the current node (must be a `:list`).
  *
  * Returns a {Symbol}.
- * Raises a NodeError if the title can't be retrieved.
+ * Raises a Error if the title can't be retrieved.
  */
 static VALUE rb_node_get_list_type(VALUE self) {
   int list_type;
@@ -852,7 +848,7 @@ static VALUE rb_node_get_list_type(VALUE self) {
  *
  * level - A {Symbol} representing the new list type
  *
- * Raises a NodeError if the list type can't be set.
+ * Raises a Error if the list type can't be set.
  */
 static VALUE rb_node_set_list_type(VALUE self, VALUE list_type) {
   int type = 0;
@@ -881,7 +877,7 @@ static VALUE rb_node_set_list_type(VALUE self, VALUE list_type) {
  * `:ordered_list`).
  *
  * Returns a {Number} representing the starting number.
- * Raises a NodeError if the starting number can't be retrieved.
+ * Raises a Error if the starting number can't be retrieved.
  */
 static VALUE rb_node_get_list_start(VALUE self) {
   cmark_node *node;
@@ -902,7 +898,7 @@ static VALUE rb_node_get_list_start(VALUE self) {
  *
  * level - A {Number} representing the new starting number
  *
- * Raises a NodeError if the starting number can't be set.
+ * Raises a Error if the starting number can't be set.
  */
 static VALUE rb_node_set_list_start(VALUE self, VALUE start) {
   int s;
@@ -923,7 +919,7 @@ static VALUE rb_node_set_list_start(VALUE self, VALUE start) {
  * Public: Gets the tight status the current node (must be a `:list`).
  *
  * Returns a `true` if the list is tight, `false` otherwise.
- * Raises a NodeError if the starting number can't be retrieved.
+ * Raises a Error if the starting number can't be retrieved.
  */
 static VALUE rb_node_get_list_tight(VALUE self) {
   int flag;
@@ -944,7 +940,7 @@ static VALUE rb_node_get_list_tight(VALUE self) {
  *
  * tight - A {Boolean} representing the new tightness
  *
- * Raises a NodeError if the tightness can't be set.
+ * Raises a Error if the tightness can't be set.
  */
 static VALUE rb_node_set_list_tight(VALUE self, VALUE tight) {
   int t;
@@ -963,7 +959,7 @@ static VALUE rb_node_set_list_tight(VALUE self, VALUE tight) {
  * Public: Gets the fence info of the current node (must be a `:code_block`).
  *
  * Returns a {String} representing the fence info.
- * Raises a NodeError if the fence info can't be retrieved.
+ * Raises a Error if the fence info can't be retrieved.
  */
 static VALUE rb_node_get_fence_info(VALUE self) {
   const char *fence_info;
@@ -984,7 +980,7 @@ static VALUE rb_node_get_fence_info(VALUE self) {
  *
  * info - A {String} representing the new fence info
  *
- * Raises a NodeError if the fence info can't be set.
+ * Raises a Error if the fence info can't be set.
  */
 static VALUE rb_node_set_fence_info(VALUE self, VALUE info) {
   char *text;
@@ -1021,7 +1017,7 @@ static VALUE rb_node_get_tasklist_item_checked(VALUE self) {
  * item_checked - A {Boolean} representing the new checkbox state
  *
  * Returns a {Boolean} representing the new checkbox state.
- * Raises a NodeError if the checkbox state can't be set.
+ * Raises a Error if the checkbox state can't be set.
  */
 static VALUE rb_node_set_tasklist_item_checked(VALUE self, VALUE item_checked) {
   int tasklist_state;
@@ -1188,7 +1184,7 @@ __attribute__((visibility("default"))) void Init_markly() {
   rb_define_method(rb_Markly_Node, "string_content=", rb_node_set_string_content, 1);
   rb_define_method(rb_Markly_Node, "type", rb_node_get_type, 0);
   rb_define_method(rb_Markly_Node, "type_string", rb_node_get_type_string, 0);
-  rb_define_method(rb_Markly_Node, "sourcepos", rb_node_get_sourcepos, 0);
+  rb_define_method(rb_Markly_Node, "source_position", rb_node_get_source_position, 0);
   rb_define_method(rb_Markly_Node, "delete", rb_node_unlink, 0);
   rb_define_method(rb_Markly_Node, "first_child", rb_node_first_child, 0);
   rb_define_method(rb_Markly_Node, "next", rb_node_next, 0);

@@ -13,12 +13,12 @@ $LOAD_PATH.unshift File.expand_path('lib', root)
 def parse_options
   options = OpenStruct.new
   extensions = Markly.extensions
-  parse_options = Markly::Config::Parse
-  render_options = Markly::Config::Render
+  # parse_options = Markly::Config::Parse
+  # render_options = Markly::Config::Render
 
   options.active_extensions = []
-  options.active_parse_options = [:DEFAULT]
-  options.active_render_options = [:DEFAULT]
+  options.active_parse_flags = Markly::DEFAULT
+  options.active_render_flags = Markly::DEFAULT
 
   option_parser = OptionParser.new do |opts|
     opts.banner = 'Usage: markly [--html-renderer] [--extension=EXTENSION]'
@@ -44,8 +44,8 @@ def parse_options
       puts opts
       puts
       puts "Available extentions: #{extensions.join(', ')}"
-      puts "Available parse options: #{parse_options.keys.join(', ')}"
-      puts "Available render options: #{render_options.keys.join(', ')}"
+      # puts "Available parse options: #{parse_options.keys.join(', ')}"
+      # puts "Available render options: #{render_options.keys.join(', ')}"
       puts
       puts 'See the README for more information on these.'
       exit
@@ -88,11 +88,11 @@ end
 
 options = parse_options
 
-doc = Markly.parse(ARGF.read, options.active_parse_options, options.active_extensions)
+doc = Markly.parse(ARGF.read, flags: options.active_parse_flags, extensions: options.active_extensions)
 
 if options.renderer
   renderer = Markly::HtmlRenderer.new(extensions: options.active_extensions)
   STDOUT.write(renderer.render(doc))
 else
-  STDOUT.write(doc.to_html(options.active_render_options, options.active_extensions))
+  STDOUT.write(doc.to_html(flags: options.active_render_options, extensions: options.active_extensions))
 end

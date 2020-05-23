@@ -36,8 +36,8 @@ module Markly
   #
   # Returns a {String} of converted HTML.
   def self.render_html(text, flags: DEFAULT, extensions: nil)
-    root = self.parse(text, flags: flags, extensions: extensions)
+    root = self.parse(text, extensions: extensions)
     
-    return root.to_html
+    return root.to_html(flags: flags)
   end
 end
