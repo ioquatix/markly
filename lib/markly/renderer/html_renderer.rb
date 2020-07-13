@@ -25,18 +25,19 @@ module Markly
 
     def header(node)
       block do
-        out('<h', node.header_level, "#{id_for(node)}#{source_position(node)}>", :children,
-            '</h', node.header_level, '>')
+        @stream << '<h' << node.header_level << "#{id_for(node)}#{source_position(node)}>"
+        render_children(node)
+        @stream << '</h' << node.header_level << '>'
       end
     end
 
     def paragraph(node)
       if @in_tight && node.parent.type != :blockquote
-        out(:children)
+        render_children(node)
       else
         block do
           container("<p#{source_position(node)}>", '</p>') do
-            out(:children)
+            render_children(node)
             if node.parent.type == :footnote_definition && node.next.nil?
               out(' ')
               out_footnote_backref
@@ -53,7 +54,7 @@ module Markly
       block do
         if node.list_type == :bullet_list
           container("<ul#{source_position(node)}>\n", '</ul>') do
-            out(:children)
+            render_children(node)
           end
         else
           start = if node.list_start == 1
@@ -62,7 +63,7 @@ module Markly
                     "<ol start=\"#{node.list_start}\"#{source_position(node)}>\n"
                   end
           container(start, '</ol>') do
-            out(:children)
+            render_children(node)
           end
         end
       end
@@ -74,7 +75,7 @@ module Markly
       block do
         tasklist_data = tasklist(node)
         container("<li#{source_position(node)}#{tasklist_data}>#{' ' if tasklist?(node)}", '</li>') do
-          out(:children)
+          render_children(node)
         end
       end
     end
@@ -93,7 +94,7 @@ module Markly
     def blockquote(node)
       block do
         container("<blockquote#{source_position(node)}>\n", '</blockquote>') do
-          out(:children)
+          render_children(node)
         end
       end
     end
@@ -141,24 +142,32 @@ module Markly
       end
     end
 
-    def emph(_)
-      out('<em>', :children, '</em>')
+    def emph(node)
+      @stream << '<em>'
+      render_children(node)
+      @stream << '</em>'
     end
 
-    def strong(_)
-      out('<strong>', :children, '</strong>')
+    def strong(node)
+      @stream << '<strong>'
+      render_children(node)
+      @stream << '</strong>'
     end
 
     def link(node)
       out('<a href="', node.url.nil? ? '' : escape_href(node.url), '"')
       out(' title="', escape_html(node.title), '"') if node.title && !node.title.empty?
-      out('>', :children, '</a>')
+      out('>')
+      render_children(node)
+      out('</a>')
     end
 
     def image(node)
       out('<img src="', escape_href(node.url), '"')
       plain do
-        out(' alt="', :children, '"')
+        out(' alt="')
+        render_children(node)
+        out('"')
       end
       out(' title="', escape_html(node.title), '"') if node.title && !node.title.empty?
       out(' />')
@@ -191,7 +200,8 @@ module Markly
     def table(node)
       @alignments = node.table_alignments
       @needs_close_tbody = false
-      out("<table#{source_position(node)}>\n", :children)
+      out("<table#{source_position(node)}>\n")
+      render_children(node)
       out("</tbody>\n") if @needs_close_tbody
       out("</table>\n")
     end
@@ -200,7 +210,9 @@ module Markly
       @column_index = 0
 
       @in_header = true
-      out("<thead>\n<tr#{source_position(node)}>\n", :children, "</tr>\n</thead>\n")
+      out("<thead>\n<tr#{source_position(node)}>\n")
+      render_children(node)
+      out("</tr>\n</thead>\n")
       @in_header = false
     end
 
@@ -210,7 +222,9 @@ module Markly
         @needs_close_tbody = true
         out("<tbody>\n")
       end
-      out("<tr#{source_position(node)}>\n", :children, "</tr>\n")
+      out("<tr#{source_position(node)}>\n")
+      render_children(node)
+      out("</tr>\n")
     end
 
     def table_cell(node)
@@ -220,26 +234,43 @@ module Markly
               when :center then ' align="center"'
               else; ''
               end
-      out(@in_header ? "<th#{align}#{source_position(node)}>" : "<td#{align}#{source_position(node)}>", :children, @in_header ? "</th>\n" : "</td>\n")
+      
+      if @in_header
+        @stream << "<th#{align}#{source_position(node)}>"
+      else
+        @stream << "<td#{align}#{source_position(node)}>"
+      end
+      
+      render_children(node)
+      
+      if @in_header
+        @stream << "</th>\n"
+      else
+        @stream << "</td>\n"
+      end
+      
       @column_index += 1
     end
 
-    def strikethrough(_)
-      out('<del>', :children, '</del>')
+    def strikethrough(node)
+      @stream << "<del>"
+      render_children(node)
+      @stream << "</del>"
     end
 
     def footnote_reference(node)
       out("<sup class=\"footnote-ref\"><a href=\"#fn#{node.string_content}\" id=\"fnref#{node.string_content}\">#{node.string_content}</a></sup>")
     end
 
-    def footnote_definition(_)
+    def footnote_definition(node)
       unless @footnote_ix
         out("<section class=\"footnotes\">\n<ol>\n")
         @footnote_ix = 0
       end
 
       @footnote_ix += 1
-      out("<li id=\"fn#{@footnote_ix}\">\n", :children)
+      out("<li id=\"fn#{@footnote_ix}\">\n")
+      render_children(node)
       out("\n") if out_footnote_backref
       out("</li>\n")
       # </ol>

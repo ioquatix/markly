@@ -8,12 +8,18 @@ module Markly
     attr_accessor :in_tight, :warnings, :in_plain
     def initialize(flags: DEFAULT, extensions: [])
       @flags = flags
-      @stream = StringIO.new(+'')
+      @stream = StringIO.new
       @need_blocksep = false
       @warnings = Set.new
       @in_tight = false
       @in_plain = false
       @tagfilter = extensions.include?(:tagfilter)
+    end
+
+    def << string
+      @stream.write(string)
+      
+      return self
     end
 
     def out(*args)
@@ -28,6 +34,10 @@ module Markly
           @stream.write(arg)
         end
       end
+    end
+
+    def render_children(node)
+      node.each{|child| render(child)}
     end
 
     def render(node)
@@ -47,8 +57,8 @@ module Markly
       end
     end
 
-    def document(_node)
-      out(:children)
+    def document(node)
+      render_children(node)
     end
 
     def code_block(node)
