@@ -18,7 +18,7 @@ MARKDOWN
 describe Markly do
 	let(:markdown) {MARKDOWN}
 	let(:extensions) {[]}
-	let(:document) {Markly.parse(markdown, extensions:)}
+	let(:document) {Markly.parse(markdown, extensions: extensions)}
 	let(:html) {document.to_html}
 	
 	let(:renderer) {Markly::Renderer::HTML.new}
@@ -116,7 +116,7 @@ describe Markly do
 	with "double tilde strikethrough extension" do
 		let(:markdown) {'~a~ ~~b~~ ~~~c~~~'}
 		let(:extensions) {[:strikethrough]}
-		let(:document) {Markly.parse(markdown, flags: Markly::STRIKETHROUGH_DOUBLE_TILDE, extensions:)}
+		let(:document) {Markly.parse(markdown, flags: Markly::STRIKETHROUGH_DOUBLE_TILDE, extensions: extensions)}
 		
 		it "renders double tilde strikethrough" do
 			expect(html).to be == <<~HTML
