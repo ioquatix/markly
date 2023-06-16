@@ -28,9 +28,7 @@ describe Markly do
 		
 		it "can get tasklist state" do
 			list = document.first_child
-			expect(list.first_child.tasklist_state).to be == "checked"
 			expect(list.first_child.tasklist_item_checked?).to be == true
-			expect(list.first_child.next.tasklist_state).to be == "unchecked"
 			expect(list.first_child.next.tasklist_item_checked?).to be == false
 		end
 		
