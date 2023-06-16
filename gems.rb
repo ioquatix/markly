@@ -15,6 +15,10 @@ group :maintenance, optional: true do
 	gem "bake-modernize"
 end
 
+group :test do
+	gem "bake-test"
+end
+
 group :benchmark do
 	# gem 'github-markdown'
 	gem 'kramdown'
