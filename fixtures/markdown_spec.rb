@@ -12,13 +12,13 @@ module MarkdownSpec
 		headertext = ''
 		tests = []
 		extensions = []
-	
+		
 		header_re = Regexp.new('#+ ')
-		filepath = File.join('cmark-gfm/test', filename)
-	
+		filepath = File.expand_path(filename, __dir__)
+		
 		File.readlines(filepath, encoding: 'utf-8').each do |line|
 			line_number += 1
-	
+			
 			l = line.strip
 			if l =~ /^`{32} example(.*)$/
 				state = 1
@@ -50,7 +50,7 @@ module MarkdownSpec
 				headertext = line.sub(header_re, '').strip
 			end
 		end
-	
+		
 		tests
 	end
 end
