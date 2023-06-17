@@ -40,7 +40,7 @@ jobs:
     
     - name: Generate documentation
       timeout-minutes: 5
-      run: bundle exec bake utopia:project:static --force no
+      run: bundle exec bake build utopia:project:static --force no
     
     - name: Upload documentation artifact
       uses: actions/upload-pages-artifact@v1

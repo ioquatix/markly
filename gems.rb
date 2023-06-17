@@ -14,6 +14,7 @@ group :maintenance, optional: true do
 	gem "bake-modernize"
 	
 	gem "build-files", "~> 1.9"
+	gem "utopia-project"
 end
 
 group :test do
