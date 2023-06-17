@@ -216,7 +216,7 @@ describe Markly::Node do
 		
 		it "can replace a section and subsections" do
 			document.find_header("Heading").replace_section(new_document.first_child, remove_subsections: false)
-			expect(document.to_html).to be == "<h3>New Heading</h3>\n"
+			expect(document.to_html).to be == "<h3>New Heading</h3>\n<h2>Subheading</h2>\n"
 		end
 	end
 end
