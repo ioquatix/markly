@@ -6,8 +6,7 @@
 # Copyright, 2015-2019, by Garen Torikian.
 # Copyright, 2016-2017, by Yuki Izumi.
 # Copyright, 2017, by Ashe Connor.
-# Copyright, 2019, by Garen J. Torikian.
-# Copyright, 2020, by Samuel Williams.
+# Copyright, 2020-2023, by Samuel Williams.
 
 require 'mkmf'
 

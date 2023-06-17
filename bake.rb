@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 # Released under the MIT License.
-# Copyright, 2021, by Samuel Williams.
+# Copyright, 2023, by Samuel Williams.
 
-# $LOAD_PATH << ::File.expand_path("ext", __dir__)
+$LOAD_PATH << ::File.expand_path("ext", __dir__)
 
 def build
 	ext_path = File.expand_path("ext/markly", __dir__)

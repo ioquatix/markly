@@ -5,9 +5,8 @@
 # Copyright, 2015, by Nick Wellnhofer.
 # Copyright, 2017, by Yuki Izumi.
 # Copyright, 2017-2019, by Ashe Connor.
-# Copyright, 2017-2020, by Garen J. Torikian.
 # Copyright, 2018, by Michael Camilleri.
-# Copyright, 2020-2022, by Samuel Williams.
+# Copyright, 2020-2023, by Samuel Williams.
 
 require_relative 'generic'
 require 'cgi'

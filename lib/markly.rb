@@ -6,8 +6,7 @@
 # Copyright, 2015-2019, by Garen Torikian.
 # Copyright, 2015, by Nick Wellnhofer.
 # Copyright, 2016-2017, by Yuki Izumi.
-# Copyright, 2019, by Garen J. Torikian.
-# Copyright, 2020-2022, by Samuel Williams.
+# Copyright, 2020-2023, by Samuel Williams.
 
 require 'markly/markly'
 

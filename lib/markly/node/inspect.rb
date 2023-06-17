@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
 # Released under the MIT License.
-# Copyright, 2017, by FUJI Goro (gfx).
+# Copyright, 2017, by Goro Fuji.
 # Copyright, 2017-2019, by Garen Torikian.
-# Copyright, 2019, by Garen J. Torikian.
 # Copyright, 2020, by Olle Jonsson.
-# Copyright, 2020, by Samuel Williams.
+# Copyright, 2020-2023, by Samuel Williams.
 
 require 'pp'
 

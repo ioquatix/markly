@@ -1,5 +1,11 @@
 # frozen_string_literal: true
 
+# Released under the MIT License.
+# Copyright, 2015-2019, by Garen Torikian.
+# Copyright, 2015, by Nick Wellnhofer.
+# Copyright, 2017, by Yuki Izumi.
+# Copyright, 2020-2023, by Samuel Williams.
+
 require 'test_helper'
 
 module Markly

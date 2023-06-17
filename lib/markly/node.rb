@@ -3,10 +3,9 @@
 # Released under the MIT License.
 # Copyright, 2016-2019, by Garen Torikian.
 # Copyright, 2016-2017, by Yuki Izumi.
-# Copyright, 2017, by FUJI Goro (gfx).
+# Copyright, 2017, by Goro Fuji.
 # Copyright, 2018, by Jerry van Leeuwen.
-# Copyright, 2019, by Garen J. Torikian.
-# Copyright, 2020, by Samuel Williams.
+# Copyright, 2020-2023, by Samuel Williams.
 
 require_relative 'node/inspect'
 

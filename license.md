@@ -5,20 +5,18 @@ Copyright, 2015-2020, by Garen Torikian.
 Copyright, 2015, by Nick Wellnhofer.  
 Copyright, 2015-2017, by Andrew Anderson.  
 Copyright, 2016-2017, by Yuki Izumi.  
-Copyright, 2017, by Mu-An ✌️ Chiou.  
-Copyright, 2017, by FUJI Goro (gfx).  
+Copyright, 2017, by Mu-An Chiou.  
+Copyright, 2017-2018, by Goro Fuji.  
 Copyright, 2017, by Ben Woosley.  
 Copyright, 2017, by Roberto Hidalgo.  
 Copyright, 2017-2020, by Ashe Connor.  
-Copyright, 2017-2020, by Garen J. Torikian.  
 Copyright, 2018, by Jerry van Leeuwen.  
-Copyright, 2018, by FUJI Goro.  
 Copyright, 2018, by Vitaliy Klachkov.  
 Copyright, 2018, by Michael Camilleri.  
 Copyright, 2018, by Akira Matsuda.  
-Copyright, 2018, by diachini.  
+Copyright, 2018, by Danny Iachini.  
 Copyright, 2019-2020, by Tomoya Chiba.  
-Copyright, 2019, by digitalMoksha.  
+Copyright, 2019, by Brett Walker.  
 Copyright, 2020, by Olle Jonsson.  
 Copyright, 2020-2023, by Samuel Williams.  
 

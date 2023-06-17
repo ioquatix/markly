@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
+# Released under the MIT License.
+# Copyright, 2014, by John MacFarlane.
+# Copyright, 2015-2019, by Garen Torikian.
+# Copyright, 2020-2023, by Samuel Williams.
+
 require 'test_helper'
 require 'minitest/benchmark' if ENV['BENCH']
 
