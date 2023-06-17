@@ -39,19 +39,18 @@ def benchmark
   load 'test/benchmark.rb'
 end
 
-def update_cmark_gfm
-	# echo "Checking out cmark-gfm"
-	# echo "---------------------"
-	# cd cmark-gfm
-	# git fetch origin
-	# git checkout $BRANCH && git pull
-	# sha=`git rev-parse HEAD`
-	# cd ../../..
-	# make
-	# cp cmark-gfm/extensions/*.{c,h} ext/markly
-	# cp cmark-gfm/src/*.{inc,c,h} ext/markly
-	# rm ext/markly/main.c
-	# git add cmark-gfm
-	# git add ext/markly/
-	# git commit -m "Update cmark-gfm to $(git config submodule.cmark-gfm.url | sed s_.git\$__)/commit/${sha}"
+def synchronize_upstream
+	require 'build/files'
+	require 'build/files/system'
+	
+	root = Build::Files::Path[context.root]
+	ext_markly = root/"ext/markly"
+	cmark_gfm = root/"cmark-gfm"
+	
+	(cmark_gfm/"src").glob("**/*").copy(ext_markly)
+	(cmark_gfm/"extensions").glob("**/*").copy(ext_markly)
+	(cmark_gfm/"build/src").glob("config.h").copy(ext_markly)
+	(cmark_gfm/"build/src").glob("cmark-gfm_export.h").copy(ext_markly)
+	(cmark_gfm/"build/src").glob("cmark-gfm_version.h").copy(ext_markly)
+	(cmark_gfm/"build/extensions").glob("cmark-gfm-extensions_export.h").copy(ext_markly)
 end

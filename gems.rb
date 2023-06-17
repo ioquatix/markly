@@ -13,6 +13,8 @@ gemspec
 group :maintenance, optional: true do
 	gem "bake-gem"
 	gem "bake-modernize"
+	
+	gem "build-files", "~> 1.9"
 end
 
 group :test do
