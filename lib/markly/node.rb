@@ -100,7 +100,7 @@ module Markly
 		def replace_section(new_node, replace_header: true, remove_subsections: true)
 			# Delete until the next heading:
 			self.next&.delete_until do |node|
-				node.type == :heading && (!remove_subsections || node.header_level <= self.header_level)
+				node.type == :header && (!remove_subsections || node.header_level <= self.header_level)
 			end
 			
 			self.append_after(new_node) if new_node
