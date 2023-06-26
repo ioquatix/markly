@@ -288,7 +288,7 @@ static VALUE encode_utf8_string(const char *c_string) {
 /*
  * Public: Fetch the string contents of the node.
  *
- * Returns a {String}.
+ * Returns a {String} or {nil} if there is no string content.
  */
 static VALUE rb_node_get_string_content(VALUE self) {
 	const char *text;
@@ -296,8 +296,9 @@ static VALUE rb_node_get_string_content(VALUE self) {
 	TypedData_Get_Struct(self, cmark_node, &rb_Markly_Node_Type, node);
 
 	text = cmark_node_get_literal(node);
+
 	if (text == NULL) {
-		rb_raise(rb_Markly_Error, "could not get string content");
+		return RUBY_Qnil;
 	}
 
 	return encode_utf8_string(text);
