@@ -7,5 +7,5 @@
 # Copyright, 2020-2023, by Samuel Williams.
 
 module Markly
-	VERSION = '0.8.1'
+	VERSION = '0.9.0'
 end
