@@ -1182,7 +1182,6 @@ __attribute__((visibility("default"))) void Init_markly(void) {
 	rb_define_singleton_method(rb_Markly, "extensions", rb_Markly_extensions, 0);
 	
 	rb_Markly_Error = rb_define_class_under(rb_Markly, "Error", rb_eStandardError);
-	rb_define_singleton_method(rb_Markly_Node, "parse", rb_Markly_Parser_parse, 1);
 	
 	rb_Markly_Parser = rb_define_class_under(rb_Markly, "Parser", rb_cObject);
 	rb_define_alloc_func(rb_Markly_Parser, rb_Markly_Parser_alloc);
