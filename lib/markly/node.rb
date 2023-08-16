@@ -42,7 +42,7 @@ module Markly
 		# width - Column to wrap the output at
 		#
 		# Returns a {String}.
-		def to_commonmark(flags: DEFAULT, width: 120)
+		def to_commonmark(flags: DEFAULT, width: 0)
 			_render_commonmark(flags, width).force_encoding('utf-8')
 		end
 
@@ -54,7 +54,7 @@ module Markly
 		# width - Column to wrap the output at
 		#
 		# Returns a {String}.
-		def to_plaintext(flags: DEFAULT, width: 120)
+		def to_plaintext(flags: DEFAULT, width: 0)
 			_render_plaintext(flags, width).force_encoding('utf-8')
 		end
 
