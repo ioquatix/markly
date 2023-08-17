@@ -39,5 +39,31 @@ describe Markly::Renderer::HTML do
 		it "can render multiple tables" do
 			expect(renderer.render(document).scan(/<tbody>/).size).to be == 2
 		end
+		
+		it "generates the same output as the built in renderer" do
+			expect(renderer.render(document)).to be == document.to_html
+		end
+	end
+	
+	with "footnotes" do
+		let(:markdown) {"Hello[^hi].\n\n[^hi]: Hey!\n"}
+		let(:document) {Markly.parse(markdown, flags: Markly::FOOTNOTES)}
+		
+		it "can render footnotes" do
+			expect(renderer.render(document)).to be == <<~HTML
+				<p>Hello<sup class="footnote-ref"><a href="#fn-hi" id="fnref-hi" data-footnote-ref>1</a></sup>.</p>
+				<section class="footnotes" data-footnotes>
+				<ol>
+				<li id="fn-hi">
+				<p>Hey! <a href="#fnref-hi" class="footnote-backref" data-footnote-backref data-footnote-backref-idx="1" aria-label="Back to reference 1">↩</a></p>
+				</li>
+				</ol>
+				</section>
+			HTML
+		end
+		
+		it "generates the same output as the built in renderer" do
+			expect(renderer.render(document)).to be == document.to_html
+		end
 	end
 end
