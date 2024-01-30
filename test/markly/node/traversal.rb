@@ -4,7 +4,6 @@
 # Copyright, 2023, by Samuel Williams.
 
 require 'markly'
-require 'markly'
 
 describe Markly::Node do
 	let(:document) {Markly.parse('Hi *there*, I am mostly text!')}
