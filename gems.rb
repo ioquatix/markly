@@ -18,6 +18,10 @@ group :maintenance, optional: true do
 end
 
 group :test do
+	gem "sus"
+	gem "covered"
+	
+	gem "bake"
 	gem "bake-test"
 end
 

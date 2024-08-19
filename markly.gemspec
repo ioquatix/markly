@@ -26,8 +26,4 @@ Gem::Specification.new do |spec|
 	spec.extensions = ["ext/markly/extconf.rb"]
 	
 	spec.required_ruby_version = ">= 2.5"
-	
-	spec.add_development_dependency "bake"
-	spec.add_development_dependency "covered"
-	spec.add_development_dependency "sus"
 end
