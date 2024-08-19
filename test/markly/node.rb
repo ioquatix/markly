@@ -225,8 +225,9 @@ describe Markly::Node do
 			header = Markly.parse("# Hello `World`").first_child
 			fragment = header.extract_children
 			
-			expect(fragment.type).to be == :custom
+			expect(fragment.type).to be == :custom_inline
 			expect(fragment.to_html).to be == "Hello <code>World</code>"
+			expect(fragment.to_markdown).to be == "Hello `World`"
 		end
 	end
 end

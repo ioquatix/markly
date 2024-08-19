@@ -13,7 +13,8 @@ static VALUE rb_Markly_Node;
 static VALUE rb_Markly_Parser;
 
 static VALUE sym_document;
-static VALUE sym_custom;
+static VALUE sym_custom_block;
+static VALUE sym_custom_inline;
 static VALUE sym_blockquote;
 static VALUE sym_list;
 static VALUE sym_list_item;
@@ -216,8 +217,10 @@ static VALUE rb_node_new(VALUE self, VALUE type) {
 
 	if (type == sym_document)
 		node_type = CMARK_NODE_DOCUMENT;
-	else if (type == sym_custom)
+	else if (type == sym_custom_block)
 		node_type = CMARK_NODE_CUSTOM_BLOCK;
+	else if (type == sym_custom_inline)
+		node_type = CMARK_NODE_CUSTOM_INLINE;
 	else if (type == sym_blockquote)
 		node_type = CMARK_NODE_BLOCK_QUOTE;
 	else if (type == sym_list)
@@ -351,7 +354,10 @@ static VALUE rb_node_get_type(VALUE self) {
 		symbol = sym_document;
 		break;
 	case CMARK_NODE_CUSTOM_BLOCK:
-		symbol = sym_custom;
+		symbol = sym_custom_block;
+		break;
+	case CMARK_NODE_CUSTOM_INLINE:
+		symbol = sym_custom_inline;
 		break;
 	case CMARK_NODE_BLOCK_QUOTE:
 		symbol = sym_blockquote;
@@ -1158,7 +1164,8 @@ VALUE rb_Markly_extensions(VALUE self) {
 
 __attribute__((visibility("default"))) void Init_markly(void) {
 	sym_document = ID2SYM(rb_intern("document"));
-	sym_custom = ID2SYM(rb_intern("custom"));
+	sym_custom_block = ID2SYM(rb_intern("custom_block"));
+	sym_custom_inline = ID2SYM(rb_intern("custom_inline"));
 	sym_blockquote = ID2SYM(rb_intern("blockquote"));
 	sym_list = ID2SYM(rb_intern("list"));
 	sym_list_item = ID2SYM(rb_intern("list_item"));
