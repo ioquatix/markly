@@ -9,10 +9,20 @@ describe Markly::Node do
 	let(:document) {Markly.parse("Hi *there*. This has __many nodes__!")}
 	
 	with '#dup' do
-		it "can duplicate a node" do
+		it "can duplicate a document node" do
 			dup = document.dup
+			
+			expect(dup.type).to be == :document
 			expect(dup.to_html).to be == document.to_html
 			expect(dup).not.to be_equal(document)
+		end
+		
+		it "can duplicate a child node" do
+			dup = document.first_child.dup
+			
+			expect(dup.type).to be == :paragraph
+			expect(dup.to_html).to be == document.first_child.to_html
+			expect(dup).not.to be_equal(document.first_child)
 		end
 	end
 	

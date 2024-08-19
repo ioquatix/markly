@@ -17,7 +17,14 @@ module Markly
 		# Duplicate the current node and all children.
 		def dup
 			# This is a bit crazy, but it's the best I can come up with right now:
-			Markly.parse(self.to_markdown)
+			node = Markly.parse(self.to_markdown)
+			
+			# If we aren't duplicating a document, we return `first_child` as the root will be a document node:
+			if self.type == :document
+				return node
+			else
+				return node.first_child
+			end
 		end
 		
 		# Public: An iterator that "walks the tree," descending into children recursively.
