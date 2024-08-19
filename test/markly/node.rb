@@ -8,6 +8,14 @@ require 'markly'
 describe Markly::Node do
 	let(:document) {Markly.parse("Hi *there*. This has __many nodes__!")}
 	
+	with '#dup' do
+		it "can duplicate a node" do
+			dup = document.dup
+			expect(dup.to_html).to be == document.to_html
+			expect(dup).not.to be_equal(document)
+		end
+	end
+	
 	with '#type' do
 		it "has the document type" do
 			expect(document.type).to be == :document

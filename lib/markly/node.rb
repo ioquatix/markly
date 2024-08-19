@@ -13,7 +13,13 @@ module Markly
 	class Node
 		include Enumerable
 		include Inspect
-
+		
+		# Duplicate the current node and all children.
+		def dup
+			# This is a bit crazy, but it's the best I can come up with right now:
+			Markly.parse(self.to_markdown)
+		end
+		
 		# Public: An iterator that "walks the tree," descending into children recursively.
 		#
 		# blk - A {Proc} representing the action to take for each child
