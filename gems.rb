@@ -3,7 +3,7 @@
 # Released under the MIT License.
 # Copyright, 2014, by John MacFarlane.
 # Copyright, 2015-2019, by Garen Torikian.
-# Copyright, 2020-2023, by Samuel Williams.
+# Copyright, 2020-2024, by Samuel Williams.
 
 source 'https://rubygems.org/'
 
@@ -20,6 +20,8 @@ end
 group :test do
 	gem "sus"
 	gem "covered"
+	gem "decode"
+	gem "rubocop"
 	
 	gem "bake"
 	gem "bake-test"

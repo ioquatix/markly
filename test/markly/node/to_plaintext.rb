@@ -39,9 +39,9 @@ Okay, enough.
 PLAINTEXT
 
 describe Markly do
-  let(:document) {Markly.parse(MARKDOWN, extensions: %i[table])}
-  
-  it "can generate plaintext" do
-    expect(document.to_plaintext).to be == PLAINTEXT
-  end
+	let(:document) {Markly.parse(MARKDOWN, extensions: %i[table])}
+		
+	it "can generate plaintext" do
+		expect(document.to_plaintext).to be == PLAINTEXT
+	end
 end

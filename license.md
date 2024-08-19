@@ -1,7 +1,7 @@
 # MIT License
 
 Copyright, 2014, by John MacFarlane.  
-Copyright, 2015-2020, by Garen Torikian.  
+Copyright, 2015-2024, by Garen Torikian.  
 Copyright, 2015, by Nick Wellnhofer.  
 Copyright, 2015-2017, by Andrew Anderson.  
 Copyright, 2016-2017, by Yuki Izumi.  
@@ -18,7 +18,8 @@ Copyright, 2018, by Danny Iachini.
 Copyright, 2019-2020, by Tomoya Chiba.  
 Copyright, 2019, by Brett Walker.  
 Copyright, 2020, by Olle Jonsson.  
-Copyright, 2020-2023, by Samuel Williams.  
+Copyright, 2020-2024, by Samuel Williams.  
+Copyright, 2024, by Ross Kaffenberger.  
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

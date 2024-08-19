@@ -5,7 +5,7 @@
 # Copyright, 2016-2017, by Yuki Izumi.
 # Copyright, 2017, by Goro Fuji.
 # Copyright, 2018, by Jerry van Leeuwen.
-# Copyright, 2020-2023, by Samuel Williams.
+# Copyright, 2020-2024, by Samuel Williams.
 
 require_relative 'node/inspect'
 

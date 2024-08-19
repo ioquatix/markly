@@ -79,10 +79,10 @@ module Markly
 						end
 					else
 						start = if node.list_start == 1
-											"<ol#{source_position(node)}>\n"
-										else
-											"<ol start=\"#{node.list_start}\"#{source_position(node)}>\n"
-										end
+							"<ol#{source_position(node)}>\n"
+						else
+							"<ol start=\"#{node.list_start}\"#{source_position(node)}>\n"
+						end
 						container(start, '</ol>') do
 							out(:children)
 						end
@@ -105,9 +105,9 @@ module Markly
 				return '' unless tasklist?(node)
 
 				state = if checked?(node)
-									'checked="" disabled=""'
-								else
-									'disabled=""'
+					'checked="" disabled=""'
+				else
+					'disabled=""'
 				end
 				"><input type=\"checkbox\" #{state} /"
 			end
@@ -239,13 +239,14 @@ module Markly
 				out("<tr#{source_position(node)}>\n", :children, "</tr>\n")
 			end
 
+			TABLE_CELL_ALIGNMENT = {
+				left: ' align="left"',
+				right: ' align="right"',
+				center: ' align="center"'
+			}.freeze
+
 			def table_cell(node)
-				align = case @alignments[@column_index]
-								when :left then ' align="left"'
-								when :right then ' align="right"'
-								when :center then ' align="center"'
-								else; ''
-								end
+				align = TABLE_CELL_ALIGNMENT.fetch(@alignments[@column_index], '')
 				out(@in_header ? "<th#{align}#{source_position(node)}>" : "<td#{align}#{source_position(node)}>", :children, @in_header ? "</th>\n" : "</td>\n")
 				@column_index += 1
 			end

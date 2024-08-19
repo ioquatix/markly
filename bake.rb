@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
 # Released under the MIT License.
-# Copyright, 2023, by Samuel Williams.
+# Copyright, 2014, by John MacFarlane.
+# Copyright, 2015-2019, by Garen Torikian.
+# Copyright, 2016, by Yuki Izumi.
+# Copyright, 2017, by Ashe Connor.
+# Copyright, 2020-2023, by Samuel Williams.
 
 $LOAD_PATH << ::File.expand_path("ext", __dir__)
 
@@ -27,16 +31,16 @@ def format
 end
 
 def benchmark
-  if ENV['FETCH_PROGIT']
-    `rm -rf test/progit`
-    `git clone https://github.com/progit/progit.git test/progit`
-    langs = %w[ar az be ca cs de en eo es es-ni fa fi fr hi hu id it ja ko mk nl no-nb pl pt-br ro ru sr th tr uk vi zh zh-tw]
-    langs.each do |lang|
-      `cat test/progit/#{lang}/*/*.markdown >> test/benchinput.md`
-    end
-  end
-  $LOAD_PATH.unshift 'lib'
-  load 'test/benchmark.rb'
+	if ENV['FETCH_PROGIT']
+		`rm -rf test/progit`
+		`git clone https://github.com/progit/progit.git test/progit`
+		langs = %w[ar az be ca cs de en eo es es-ni fa fi fr hi hu id it ja ko mk nl no-nb pl pt-br ro ru sr th tr uk vi zh zh-tw]
+		langs.each do |lang|
+			`cat test/progit/#{lang}/*/*.markdown >> test/benchinput.md`
+		end
+	end
+	$LOAD_PATH.unshift 'lib'
+	load 'test/benchmark.rb'
 end
 
 def synchronize_upstream

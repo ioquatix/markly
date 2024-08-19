@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
 	spec.version = Markly::VERSION
 	
 	spec.summary = "CommonMark parser and renderer. Written in C, wrapped in Ruby."
-	spec.authors = ["Garen Torikian", "Yuki Izumi", "Samuel Williams", "John MacFarlane", "Ashe Connor", "Nick Wellnhofer", "Brett Walker", "Andrew Anderson", "Ben Woosley", "Goro Fuji", "Tomoya Chiba", "Akira Matsuda", "Danny Iachini", "Jerry van Leeuwen", "Michael Camilleri", "Mu-An Chiou", "Olle Jonsson", "Roberto Hidalgo", "Vitaliy Klachkov"]
+	spec.authors = ["Garen Torikian", "Yuki Izumi", "Samuel Williams", "John MacFarlane", "Ashe Connor", "Nick Wellnhofer", "Brett Walker", "Andrew Anderson", "Ben Woosley", "Goro Fuji", "Tomoya Chiba", "Akira Matsuda", "Danny Iachini", "Jerry van Leeuwen", "Michael Camilleri", "Mu-An Chiou", "Olle Jonsson", "Roberto Hidalgo", "Ross Kaffenberger", "Vitaliy Klachkov"]
 	spec.license = "MIT"
 	
 	spec.cert_chain  = ['release.cert']
@@ -16,8 +16,9 @@ Gem::Specification.new do |spec|
 	spec.homepage = "https://github.com/ioquatix/markly"
 	
 	spec.metadata = {
-		"funding_uri" => "https://github.com/sponsors/ioquatix/",
 		"documentation_uri" => "https://ioquatix.github.io/markly/",
+		"funding_uri" => "https://github.com/sponsors/ioquatix/",
+		"source_code_uri" => "https://github.com/ioquatix/markly.git",
 	}
 	
 	spec.files = Dir.glob(['{ext,lib}/**/*', '*.md'], File::FNM_DOTMATCH, base: __dir__)
@@ -25,5 +26,5 @@ Gem::Specification.new do |spec|
 	
 	spec.extensions = ["ext/markly/extconf.rb"]
 	
-	spec.required_ruby_version = ">= 2.5"
+	spec.required_ruby_version = ">= 3.1"
 end
