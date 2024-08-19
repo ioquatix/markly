@@ -219,4 +219,14 @@ describe Markly::Node do
 			expect(document.to_html).to be == "<h3>New Heading</h3>\n<h2>Subheading</h2>\n"
 		end
 	end
+	
+	with '#extract_children' do
+		it "can extract children from header" do
+			header = Markly.parse("# Hello `World`").first_child
+			fragment = header.extract_children
+			
+			expect(fragment.type).to be == :custom
+			expect(fragment.to_html).to be == "Hello <code>World</code>"
+		end
+	end
 end

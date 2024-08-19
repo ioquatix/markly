@@ -135,5 +135,19 @@ module Markly
 				node = next_node
 			end
 		end
+		
+		# Extract the children as a fragment.
+		#
+		# @returns [Markly::Node] the fragment.
+		def extract_children
+			fragment = Markly::Node.new(:custom)
+			
+			while child = self.first_child
+				fragment.append_child(child)
+			end
+			
+			fragment
+		end
+			
 	end
 end
