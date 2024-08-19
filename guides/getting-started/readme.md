@@ -6,7 +6,7 @@ This guide explains now to install and use Markly.
 
 Add the gem to your project:
 
-	$ bundle add async
+	$ bundle add markly
 
 ## Usage
 
