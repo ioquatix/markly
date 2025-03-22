@@ -149,6 +149,24 @@ module Markly
 			end
 		end
 		
+		# Append the given node before the current node.
+		#
+		# It's okay to provide a document node, it's children will be appended.
+		#
+		# @parameter node [Markly::Node] the node to append.
+		def append_before(node)
+			if node.type == :document
+				node = node.first_child
+			end
+			
+			current = self
+			while node
+				next_node = node.next
+				current.insert_before(node)
+				node = next_node
+			end
+		end
+		
 		# Extract the children as a fragment.
 		#
 		# @returns [Markly::Node] the fragment.

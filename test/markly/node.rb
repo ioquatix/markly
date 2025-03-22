@@ -238,6 +238,28 @@ describe Markly::Node do
 		end
 	end
 	
+	with "#append_before" do
+		let(:document) {Markly.parse("# Hello\n\nWorld")}
+		let(:new_document) {Markly.parse("Goodbye")}
+		
+		it "can append a node after another node" do
+			document.first_child.append_before(new_document)
+			
+			expect(document.to_html).to be == "<p>Goodbye</p>\n<h1>Hello</h1>\n<p>World</p>\n"
+		end
+	end
+	
+	with "#append_after" do
+		let(:document) {Markly.parse("# Hello\n\nWorld")}
+		let(:new_document) {Markly.parse("Goodbye")}
+		
+		it "can append a node after another node" do
+			document.first_child.append_after(new_document)
+			
+			expect(document.to_html).to be == "<h1>Hello</h1>\n<p>Goodbye</p>\n<p>World</p>\n"
+		end
+	end
+	
 	with '#extract_children' do
 		it "can extract children from header" do
 			header = Markly.parse("# Hello `World`").first_child
