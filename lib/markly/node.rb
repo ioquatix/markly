@@ -29,7 +29,7 @@ module Markly
 		
 		# Public: An iterator that "walks the tree," descending into children recursively.
 		#
-		# blk - A {Proc} representing the action to take for each child
+		# block - A {Proc} representing the action to take for each child
 		def walk(&block)
 			return enum_for(:walk) unless block_given?
 			
@@ -41,7 +41,7 @@ module Markly
 		
 		# Public: Convert the node to an HTML string.
 		#
-		# options - A {Symbol} or {Array of Symbol}s indicating the render options
+		# flags - A {Symbol} or {Array of Symbol}s indicating the render options
 		# extensions - An {Array of Symbol}s indicating the extensions to use
 		#
 		# Returns a {String}.
@@ -51,7 +51,7 @@ module Markly
 		
 		# Public: Convert the node to a CommonMark string.
 		#
-		# options - A {Symbol} or {Array of Symbol}s indicating the render options
+		# flags - A {Symbol} or {Array of Symbol}s indicating the render options
 		# width - Column to wrap the output at
 		#
 		# Returns a {String}.
@@ -63,7 +63,7 @@ module Markly
 		
 		# Public: Convert the node to a plain text string.
 		#
-		# options - A {Symbol} or {Array of Symbol}s indicating the render options
+		# flags - A {Symbol} or {Array of Symbol}s indicating the render options
 		# width - Column to wrap the output at
 		#
 		# Returns a {String}.
@@ -106,7 +106,6 @@ module Markly
 		
 		# Replace a section (header + content) with a new node.
 		#
-		# @parameter title [String] the title of the section to replace.
 		# @parameter new_node [Markly::Node] the node to replace the section with.
 		# @parameter replace_header [Boolean] whether to replace the header itself or not.
 		# @parameter remove_subsections [Boolean] whether to remove subsections or not.
@@ -132,7 +131,7 @@ module Markly
 		
 		# Append the given node after the current node.
 		#
-		# It's okay to provide a document node, it's children will be appended.
+		# It's okay to provide a document node, its children will be appended.
 		#
 		# @parameter node [Markly::Node] the node to append.
 		def append_after(node)
@@ -151,7 +150,7 @@ module Markly
 		
 		# Append the given node before the current node.
 		#
-		# It's okay to provide a document node, it's children will be appended.
+		# It's okay to provide a document node, its children will be appended.
 		#
 		# @parameter node [Markly::Node] the node to append.
 		def append_before(node)
