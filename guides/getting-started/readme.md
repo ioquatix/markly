@@ -78,7 +78,13 @@ Markly.render_html("\"'Shelob' is my name.\"", flags: Markly::HARD_BREAKS|Markly
 
 ## Extensions
 
-Both `render_html` and `parse` take an optional third argument defining the extensions you want enabled as your CommonMark document is being processed. The documentation for these extensions are [defined in this spec](https://github.github.com/gfm/), and the rationale is provided [in this blog post](https://githubengineering.com/a-formal-spec-for-github-markdown/).
+Both `render_html` and `parse` take an optional `extensions:` argument defining the extensions you want enabled as your CommonMark document is being processed:
+
+``` ruby
+Markly.render_html("<script>hi</script>", flags: Markly::UNSAFE, extensions: [:tagfilter])
+```
+
+The documentation for these extensions are [defined in this spec](https://github.github.com/gfm/), and the rationale is provided [in this blog post](https://githubengineering.com/a-formal-spec-for-github-markdown/).
 
 The available extensions are:
 
