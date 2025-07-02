@@ -10,7 +10,7 @@
 
 require 'mkmf'
 
-$CFLAGS << " -O3 -std=c99"
+append_cflags(["-O3", "-Wall", "-Wno-unknown-pragmas", "-std=c99"])
 
 gem_name = File.basename(__dir__)
 extension_name = 'markly'
