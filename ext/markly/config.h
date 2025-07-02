@@ -5,7 +5,9 @@
 extern "C" {
 #endif
 
+#ifndef HAVE_STDBOOL_H
 #define HAVE_STDBOOL_H
+#endif
 
 #ifdef HAVE_STDBOOL_H
   #include <stdbool.h>
@@ -68,6 +70,8 @@ CMARK_INLINE int c99_snprintf(char *outBuf, size_t size, const char *format, ...
 }
 
 #endif
+
+#define CMARK_DEBUG_NODES 0
 
 #ifdef __cplusplus
 }
