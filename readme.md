@@ -18,15 +18,17 @@ functionality, and so this fork was created to continue to provide these (and mo
 
 Please see the [project documentation](https://ioquatix.github.io/markly/) for more details.
 
-  - [Getting Started](https://ioquatix.github.io/markly/guides/getting-started/index) - This guide explains now to
-    install and use Markly.
+  - [Getting Started](https://ioquatix.github.io/markly/guides/getting-started/index) - This guide explains now to install and use Markly.
 
-  - [Abstract Syntax Tree](https://ioquatix.github.io/markly/guides/abstract-syntax-tree/index) - This guide explains
-    how to use Markly's abstract syntax tree (AST) to parse and manipulate Markdown documents.
+  - [Abstract Syntax Tree](https://ioquatix.github.io/markly/guides/abstract-syntax-tree/index) - This guide explains how to use Markly's abstract syntax tree (AST) to parse and manipulate Markdown documents.
 
 ## Releases
 
-There are no documented releases.
+Please see the [project releases](https://ioquatix.github.io/markly/releases/index) for all releases.
+
+### v0.14.0
+
+  - Expose `Markly::Renderer::HTML.anchor_for` method to generate URL-safe anchors from headers.
 
 ## Contributing
 
