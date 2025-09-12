@@ -24,6 +24,10 @@ Please see the [project documentation](https://ioquatix.github.io/markly/) for m
   - [Abstract Syntax Tree](https://ioquatix.github.io/markly/guides/abstract-syntax-tree/index) - This guide explains
     how to use Markly's abstract syntax tree (AST) to parse and manipulate Markdown documents.
 
+## Releases
+
+There are no documented releases.
+
 ## Contributing
 
 We welcome contributions to this project.
