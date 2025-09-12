@@ -39,24 +39,13 @@ module Markly
 			end
 			
 			def self.anchor_for(node)
-				# Convert to plaintext, strip trailing whitespace, convert to lowercase
+				# Convert to plaintext, strip trailing whitespace, convert to lowercase:
 				text = node.to_plaintext.chomp.downcase
 				
-				# Replace sequences of whitespace with hyphens
-				text = text.gsub(/\s+/, "-")
+				# Replace sequences of whitespace with hyphens:
+				text.gsub!(/\s+/, "-")
 				
-				# Replace periods with hyphens (useful for version numbers like v1.0.0 → v1-0-0)
-				text = text.gsub(/\./, "-")
-				
-				# Remove characters that are not URL-safe for anchors
-				# Keep: letters, numbers, hyphens, underscores
-				# Remove: punctuation, special characters, symbols
-				text = text.gsub(/[^\w\-]/, "")
-				
-				# Remove leading/trailing hyphens and collapse multiple hyphens
-				text = text.gsub(/^-+|-+$/, "").gsub(/-+/, "-")
-				
-				text
+				return text
 			end
 			
 			def anchor_for(node)

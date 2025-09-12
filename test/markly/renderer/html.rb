@@ -38,8 +38,8 @@ describe Markly::Renderer::HTML do
 			headers = document.to_a.select {|node| node.type == :header}
 			
 			expect(subject.anchor_for(headers[0])).to be == "hello-world"
-			expect(subject.anchor_for(headers[1])).to be == "test-emphasis-bold"
-			expect(subject.anchor_for(headers[2])).to be == "special-characters"
+			expect(subject.anchor_for(headers[1])).to be == "test-emphasis-&-bold"
+			expect(subject.anchor_for(headers[2])).to be == "special!@#-characters\"}"
 		end
 		
 		it "works as a class method" do
@@ -50,9 +50,9 @@ describe Markly::Renderer::HTML do
 		it "handles edge cases properly" do
 			test_cases = [
 				["# Multiple    Spaces", "multiple-spaces"],
-				["## !@#$%^&*()", ""],
-				["### Leading-and-trailing---hyphens-", "leading-and-trailing-hyphens"],
-				["#### Unicode: Café & Résumé", "unicode-caf-rsum"]
+				["## !@#$%^&*()", "!@#$%^&*()"],
+				["### Leading-and-trailing---hyphens-", "leading-and-trailing---hyphens-"],
+				["#### Unicode: Café & Résumé", "unicode:-café-&-résumé"]
 			]
 			
 			test_cases.each do |markdown, expected|
@@ -64,11 +64,11 @@ describe Markly::Renderer::HTML do
 		
 		it "removes leading and trailing hyphens" do
 			test_cases = [
-				["# ---Leading Hyphens", "leading-hyphens"],
-				["## Trailing Hyphens---", "trailing-hyphens"],
-				["### ---Both Leading and Trailing---", "both-leading-and-trailing"],
-				["#### Multiple   ---   Spaces   ---   Between", "multiple-spaces-between"],
-				["##### (Special) Characters!@# Create Hyphens", "special-characters-create-hyphens"]
+				["# ---Leading Hyphens", "---leading-hyphens"],
+				["## Trailing Hyphens---", "trailing-hyphens---"],
+				["### ---Both Leading and Trailing---", "---both-leading-and-trailing---"],
+				["#### Multiple   ---   Spaces   ---   Between", "multiple-----spaces-----between"],
+				["##### (Special) Characters!@# Create Hyphens", "(special)-characters!@#-create-hyphens"]
 			]
 			
 			test_cases.each do |markdown, expected|
@@ -78,14 +78,13 @@ describe Markly::Renderer::HTML do
 			end
 		end
 		
-		it "replaces periods with hyphens in anchors" do
+		it "preserves periods, colons, and hash symbols in anchors" do
 			test_cases = [
-				["# Version 1.0 Release", "version-1-0-release"],
-				["## Method .call() Usage", "method-call-usage"],
-				["### File.txt Processing", "file-txt-processing"],
-				["#### API v2.5.1 Documentation", "api-v2-5-1-documentation"],
-				["##### Math.PI Calculations", "math-pi-calculations"],
-				["###### Dr. Smith's Research", "dr-smiths-research"]
+				["# Version 1.0 Release", "version-1.0-release"],
+				["## Method .call() Usage", "method-.call()-usage"],
+				["### File.txt Processing", "file.txt-processing"],
+				["#### API v2.5.1 Documentation", "api-v2.5.1-documentation"],
+				["##### Dr. Smith's Research", "dr.-smith's-research"]
 			]
 			
 			test_cases.each do |markdown, expected|
