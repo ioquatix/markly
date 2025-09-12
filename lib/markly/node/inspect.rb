@@ -4,24 +4,24 @@
 # Copyright, 2017, by Goro Fuji.
 # Copyright, 2017-2019, by Garen Torikian.
 # Copyright, 2020, by Olle Jonsson.
-# Copyright, 2020-2023, by Samuel Williams.
+# Copyright, 2020-2025, by Samuel Williams.
 
-require 'pp'
+require "pp"
 
 module Markly
 	class Node
 		module Inspect
 			PP_INDENT_SIZE = 2
-
+			
 			def inspect
-				PP.pp(self, +'', Float::INFINITY)
+				PP.pp(self, +"", Float::INFINITY)
 			end
-
+			
 			# @param printer [PrettyPrint] pp
 			def pretty_print(printer)
-				printer.group(PP_INDENT_SIZE, "#<#{self.class}(#{type}):", '>') do
+				printer.group(PP_INDENT_SIZE, "#<#{self.class}(#{type}):", ">") do
 					printer.breakable
-
+					
 					attrs = %i[
 						source_position
 						string_content
@@ -39,12 +39,12 @@ module Markly
 							nil
 						end
 					end.compact
-
+					
 					printer.seplist(attrs) do |name, value|
 						printer.text "#{name}="
 						printer.pp value
 					end
-
+					
 					if first_child
 						printer.breakable
 						printer.group(PP_INDENT_SIZE) do
@@ -54,7 +54,7 @@ module Markly
 								children << node
 								node = node.next
 							end
-							printer.text 'children='
+							printer.text "children="
 							printer.pp children
 						end
 					end

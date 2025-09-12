@@ -4,9 +4,9 @@
 # Copyright, 2019-2020, by Garen Torikian.
 # Copyright, 2019, by Ashe Connor.
 # Copyright, 2020, by Tomoya Chiba.
-# Copyright, 2020-2023, by Samuel Williams.
+# Copyright, 2020-2025, by Samuel Williams.
 
-require 'markly'
+require "markly"
 
 TEXT = <<-MD
 - [x] Add task list

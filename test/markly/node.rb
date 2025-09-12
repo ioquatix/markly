@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 # Released under the MIT License.
-# Copyright, 2023-2024, by Samuel Williams.
+# Copyright, 2023-2025, by Samuel Williams.
 
-require 'markly'
+require "markly"
 
 describe Markly::Node do
 	let(:document) {Markly.parse("Hi *there*. This has __many nodes__!")}
 	
-	with '#dup' do
+	with "#dup" do
 		it "can duplicate a document node" do
 			dup = document.dup
 			
@@ -26,7 +26,7 @@ describe Markly::Node do
 		end
 	end
 	
-	with '#type' do
+	with "#type" do
 		it "has the document type" do
 			expect(document.type).to be == :document
 		end
@@ -36,7 +36,7 @@ describe Markly::Node do
 		end
 	end
 	
-	with '#first_child' do
+	with "#first_child" do
 		it "has a first child" do
 			expect(document.first_child.type).to be == :paragraph
 		end
@@ -83,7 +83,7 @@ describe Markly::Node do
 			expect(document.last_child.type).to be == :paragraph
 		end
 	end
-
+	
 	with "#parent" do
 		it "has a parent" do
 			expect(document.first_child.parent.type).to be == :document
@@ -91,7 +91,7 @@ describe Markly::Node do
 		end
 	end
 	
-	with '#next' do
+	with "#next" do
 		it "has a next sibling" do
 			expect(document.first_child.first_child.next.type).to be == :emph
 			expect(document.first_child.first_child.next).to be == document.first_child.first_child.next
@@ -105,7 +105,7 @@ describe Markly::Node do
 		end
 	end
 	
-	with '#url' do
+	with "#url" do
 		let(:document) {Markly.parse("[GitHub](https://www.github.com)")}
 		let(:url_node) {document.first_child.first_child}
 		
@@ -120,7 +120,7 @@ describe Markly::Node do
 		end
 	end
 	
-	with '#title' do
+	with "#title" do
 		let(:document) {Markly.parse('![alt text](https://github.com/favicon.ico "Favicon")')}
 		let(:title_node) {document.first_child.first_child}
 		
@@ -135,8 +135,8 @@ describe Markly::Node do
 		end
 	end
 	
-	with '#header_level' do
-		let(:document) {Markly.parse('### Header Three')}
+	with "#header_level" do
+		let(:document) {Markly.parse("### Header Three")}
 		let(:header_node) {document.first_child}
 		
 		it "has a header level" do
@@ -150,7 +150,7 @@ describe Markly::Node do
 		end
 	end
 	
-	with '#list_type' do
+	with "#list_type" do
 		let(:document) {Markly.parse("* Bullet\n* Bullet")}
 		let(:list_node) {document.first_child}
 		
@@ -165,7 +165,7 @@ describe Markly::Node do
 		end
 	end
 	
-	with '#list_start' do
+	with "#list_start" do
 		let(:document) {Markly.parse("1. One\n2. Two")}
 		let(:list_node) {document.first_child}
 		
@@ -180,7 +180,7 @@ describe Markly::Node do
 		end
 	end
 	
-	with '#list_tight' do
+	with "#list_tight" do
 		let(:ul_list) {Markly.parse("* Bullet\n* Bullet").first_child}
 		let(:ol_list) {Markly.parse("1. One\n2. Two").first_child}
 		
@@ -199,7 +199,7 @@ describe Markly::Node do
 		end
 	end
 	
-	with '#fence_info' do
+	with "#fence_info" do
 		let(:document) {Markly.parse("``` ruby\nputs 'wow'\n```")}
 		let(:fence_node) {document.first_child}
 		
@@ -214,7 +214,7 @@ describe Markly::Node do
 		end
 	end
 	
-	with '#find_header' do
+	with "#find_header" do
 		let(:document) {Markly.parse("# Heading\n\n## Subheading")}
 		
 		it "can find a heading" do
@@ -223,7 +223,7 @@ describe Markly::Node do
 		end
 	end
 	
-	with '#replace_section' do
+	with "#replace_section" do
 		let(:document) {Markly.parse("# Heading\n\n## Subheading")}
 		let(:new_document) {Markly.parse("### New Heading")}
 		
@@ -260,7 +260,7 @@ describe Markly::Node do
 		end
 	end
 	
-	with '#extract_children' do
+	with "#extract_children" do
 		it "can extract children from header" do
 			header = Markly.parse("# Hello `World`").first_child
 			fragment = header.extract_children

@@ -3,9 +3,9 @@
 # Released under the MIT License.
 # Copyright, 2016-2017, by Yuki Izumi.
 # Copyright, 2016-2019, by Garen Torikian.
-# Copyright, 2020-2023, by Samuel Williams.
+# Copyright, 2020-2025, by Samuel Williams.
 
-require 'markly'
+require "markly"
 
 MARKDOWN = <<~MARKDOWN
 Hi *there*!
@@ -27,11 +27,11 @@ HTML_COMMENT = /<!--.*?-->\s?/
 describe Markly::Node do
 	let(:document) {Markly.parse(MARKDOWN, extensions: %i[table])}
 	
-	with '#to_markdown' do
+	with "#to_markdown" do
 		it "can generate equivalent HTML" do
 			markdown = document.to_markdown
 			html = Markly.parse(markdown, extensions: %i[table]).to_html
-			html.gsub!(HTML_COMMENT, '')
+			html.gsub!(HTML_COMMENT, "")
 			
 			expect(html).to be == document.to_html
 		end

@@ -1,5 +1,7 @@
-/.bundle/
-/pkg/
+/agents.md
+/.context
+/.bundle
+/pkg
 /gems.locked
 /.covered.db
 /external
@@ -9,3 +11,5 @@ Makefile
 *.so
 *.bundle
 tmp/
+/ext/markly/mkmf.log
+/ext/markly/markly.bundle.dSYM

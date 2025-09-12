@@ -3,15 +3,17 @@
 # Released under the MIT License.
 # Copyright, 2014, by John MacFarlane.
 # Copyright, 2015-2019, by Garen Torikian.
-# Copyright, 2020-2024, by Samuel Williams.
+# Copyright, 2020-2025, by Samuel Williams.
 
-source 'https://rubygems.org/'
+source "https://rubygems.org/"
 
 gemspec
 
 group :maintenance, optional: true do
 	gem "bake-gem"
 	gem "bake-modernize"
+	
+	gem "agent-context"
 	
 	gem "build-files", "~> 1.9"
 	gem "utopia-project"
@@ -21,7 +23,9 @@ group :test do
 	gem "sus"
 	gem "covered"
 	gem "decode"
+	
 	gem "rubocop"
+	gem "rubocop-socketry"
 	
 	gem "bake"
 	gem "bake-test"
@@ -29,6 +33,6 @@ end
 
 group :benchmark do
 	# gem 'github-markdown'
-	gem 'kramdown'
-	gem 'redcarpet'
+	gem "kramdown"
+	gem "redcarpet"
 end

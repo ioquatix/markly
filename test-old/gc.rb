@@ -3,43 +3,43 @@
 # Released under the MIT License.
 # Copyright, 2015, by Nick Wellnhofer.
 # Copyright, 2015-2019, by Garen Torikian.
-# Copyright, 2020-2023, by Samuel Williams.
+# Copyright, 2020-2025, by Samuel Williams.
 
-require 'test_helper'
+require "test_helper"
 
 class TestNode < Minitest::Test
 	# These tests are somewhat fragile. It would be better to allocate lots
 	# of memory after a GC run to make sure that potentially freed memory
 	# isn't valid by accident.
-
+	
 	def test_drop_parent_reference
-		doc = Markly.parse('Hi *there*')
+		doc = Markly.parse("Hi *there*")
 		text = doc.first_child.last_child.first_child
 		doc = nil
 		GC.start
 		# Test that doc has not been freed.
-		assert_equal 'there', text.string_content
+		assert_equal "there", text.string_content
 	end
-
+	
 	def test_drop_child_reference
-		doc = Markly.parse('Hi *there*')
+		doc = Markly.parse("Hi *there*")
 		text = doc.first_child.last_child.first_child
 		text = nil
 		GC.start
 		# Test that the cached child object is still valid.
 		text = doc.first_child.last_child.first_child
-		assert_equal 'there', text.string_content
+		assert_equal "there", text.string_content
 	end
-
+	
 	def test_remove_parent
-		doc = Markly.parse('Hi *there*')
+		doc = Markly.parse("Hi *there*")
 		para = doc.first_child
 		para.delete
 		doc = nil
 		para = nil
 		# TODO: Test that the `para` node was actually freed after unlinking.
 	end
-
+	
 	def test_add_parent
 		doc = Node.new(:document)
 		hrule = Node.new(:hrule)

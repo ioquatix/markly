@@ -10,8 +10,8 @@ Gem::Specification.new do |spec|
 	spec.authors = ["Garen Torikian", "Yuki Izumi", "Samuel Williams", "John MacFarlane", "Ashe Connor", "Nick Wellnhofer", "Brett Walker", "Andrew Anderson", "Ben Woosley", "Goro Fuji", "Tomoya Chiba", "Akira Matsuda", "Danny Iachini", "Jerry van Leeuwen", "Michael Camilleri", "Mu-An Chiou", "Olle Jonsson", "Roberto Hidalgo", "Ross Kaffenberger", "Vitaliy Klachkov"]
 	spec.license = "MIT"
 	
-	spec.cert_chain  = ['release.cert']
-	spec.signing_key = File.expand_path('~/.gem/release.pem')
+	spec.cert_chain  = ["release.cert"]
+	spec.signing_key = File.expand_path("~/.gem/release.pem")
 	
 	spec.homepage = "https://github.com/ioquatix/markly"
 	
@@ -21,10 +21,10 @@ Gem::Specification.new do |spec|
 		"source_code_uri" => "https://github.com/ioquatix/markly.git",
 	}
 	
-	spec.files = Dir.glob(['{ext,lib}/**/*', '*.md'], File::FNM_DOTMATCH, base: __dir__)
-	spec.require_paths = ['lib']
+	spec.files = Dir.glob(["{ext,lib}/**/*", "*.md"], File::FNM_DOTMATCH, base: __dir__)
+	spec.require_paths = ["lib"]
 	
 	spec.extensions = ["ext/markly/extconf.rb"]
 	
-	spec.required_ruby_version = ">= 3.1"
+	spec.required_ruby_version = ">= 3.2"
 end

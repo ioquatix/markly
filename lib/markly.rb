@@ -6,15 +6,15 @@
 # Copyright, 2015-2019, by Garen Torikian.
 # Copyright, 2015, by Nick Wellnhofer.
 # Copyright, 2016-2017, by Yuki Izumi.
-# Copyright, 2020-2023, by Samuel Williams.
+# Copyright, 2020-2025, by Samuel Williams.
 
-require 'markly/markly'
+require "markly/markly"
 
-require_relative 'markly/flags'
-require_relative 'markly/node'
-require_relative 'markly/renderer/html'
+require_relative "markly/flags"
+require_relative "markly/node"
+require_relative "markly/renderer/html"
 
-require_relative 'markly/version'
+require_relative "markly/version"
 
 module Markly
 	# Public: Parses a Markdown string into a `document` node.

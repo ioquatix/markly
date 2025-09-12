@@ -3,9 +3,9 @@
 # Released under the MIT License.
 # Copyright, 2018, by Ashe Connor.
 # Copyright, 2019, by Garen Torikian.
-# Copyright, 2020-2023, by Samuel Williams.
+# Copyright, 2020-2025, by Samuel Williams.
 
-require 'markly'
+require "markly"
 
 describe Markly do
 	with "Markly::FULL_INFO_STRING" do

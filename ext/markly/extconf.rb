@@ -6,14 +6,14 @@
 # Copyright, 2015-2019, by Garen Torikian.
 # Copyright, 2016-2017, by Yuki Izumi.
 # Copyright, 2017, by Ashe Connor.
-# Copyright, 2020-2023, by Samuel Williams.
+# Copyright, 2020-2025, by Samuel Williams.
 
-require 'mkmf'
+require "mkmf"
 
 append_cflags(["-O3", "-Wall", "-Wno-unknown-pragmas", "-std=c99"])
 
 gem_name = File.basename(__dir__)
-extension_name = 'markly'
+extension_name = "markly"
 
 # The destination:
 dir_config(extension_name)

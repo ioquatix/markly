@@ -6,9 +6,9 @@
 # Copyright, 2017, by Andrew Anderson.
 # Copyright, 2018, by Ashe Connor.
 # Copyright, 2018, by Goro Fuji.
-# Copyright, 2020-2023, by Samuel Williams.
+# Copyright, 2020-2025, by Samuel Williams.
 
-require 'markly'
+require "markly"
 
 MARKDOWN = <<-MARKDOWN
 One extension:
@@ -32,7 +32,7 @@ describe Markly do
 	let(:renderer) {Markly::Renderer::HTML.new}
 	
 	with "invalid string extensions" do
-		let(:extensions) {['table']}
+		let(:extensions) {["table"]}
 		
 		it "raises an error" do
 			expect{html}.to raise_exception(TypeError)
@@ -122,7 +122,7 @@ describe Markly do
 	end
 	
 	with "double tilde strikethrough extension" do
-		let(:markdown) {'~a~ ~~b~~ ~~~c~~~'}
+		let(:markdown) {"~a~ ~~b~~ ~~~c~~~"}
 		let(:extensions) {[:strikethrough]}
 		let(:document) {Markly.parse(markdown, flags: Markly::STRIKETHROUGH_DOUBLE_TILDE, extensions: extensions)}
 		

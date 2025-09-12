@@ -2,9 +2,9 @@
 
 # Released under the MIT License.
 # Copyright, 2016-2019, by Garen Torikian.
-# Copyright, 2020-2023, by Samuel Williams.
+# Copyright, 2020-2025, by Samuel Williams.
 
-require 'markly'
+require "markly"
 
 describe Markly::Renderer::HTML do
 	let(:markdown) {"# Introduction\nHi *there*"}
@@ -28,14 +28,14 @@ describe Markly::Renderer::HTML do
 			# Hello World
 			
 			## Test *Emphasis* & **Bold**
-
+			
 			### Special!@# Characters"}
 		MARKDOWN
 		
 		let(:document) {Markly.parse(markdown)}
 		
 		it "can generate URL-safe anchors from headers" do
-			headers = document.to_a.select { |node| node.type == :header }
+			headers = document.to_a.select {|node| node.type == :header}
 			
 			expect(subject.anchor_for(headers[0])).to be == "hello-world"
 			expect(subject.anchor_for(headers[1])).to be == "test-emphasis-bold"

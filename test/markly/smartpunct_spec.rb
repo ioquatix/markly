@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 # Released under the MIT License.
-# Copyright, 2023, by Samuel Williams.
+# Copyright, 2023-2025, by Samuel Williams.
 
-require 'markly'
-require 'markdown_spec'
+require "markly"
+require "markdown_spec"
 
-MarkdownSpec.open('smart_punct.txt').each do |testcase|
+MarkdownSpec.open("smart_punct.txt").each do |testcase|
 	describe testcase[:section], unique: testcase[:example] do
 		let(:document) {Markly.parse(testcase[:markdown], flags: Markly::SMART)}
 		

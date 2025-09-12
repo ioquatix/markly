@@ -4,8 +4,8 @@
 # Copyright, 2015-2020, by Garen Torikian.
 # Copyright, 2016-2017, by Yuki Izumi.
 # Copyright, 2017-2018, by Ashe Connor.
-# Copyright, 2020-2023, by Samuel Williams.
+# Copyright, 2020-2025, by Samuel Williams.
 
 module Markly
-	VERSION = '0.13.1'
+	VERSION = "0.13.1"
 end

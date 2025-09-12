@@ -4,13 +4,13 @@
 # Copyright, 2016-2024, by Garen Torikian.
 # Copyright, 2017, by Yuki Izumi.
 # Copyright, 2017, by Goro Fuji.
-# Copyright, 2020-2023, by Samuel Williams.
+# Copyright, 2020-2025, by Samuel Williams.
 
-require 'markly'
+require "markly"
 
 describe Markly::Node do
-	let(:document) {Markly.parse('Hi *there*, I am mostly text!')}
-
+	let(:document) {Markly.parse("Hi *there*, I am mostly text!")}
+	
 	it "can walk all nodes" do
 		nodes = []
 		document.walk do |node|
@@ -18,7 +18,7 @@ describe Markly::Node do
 		end
 		expect(nodes).to be == %i[document paragraph text emph text text]
 	end
-
+	
 	it "can enumerate nodes" do
 		nodes = []
 		document.first_child.each do |node|
@@ -28,7 +28,7 @@ describe Markly::Node do
 	end
 	
 	it "can select nodes" do
-		nodes = document.first_child.select { |node| node.type == :text }
+		nodes = document.first_child.select {|node| node.type == :text}
 		expect(nodes.first).to be_a(Markly::Node)
 		expect(nodes.map(&:type)).to be == %i[text text]
 	end
@@ -55,7 +55,7 @@ describe Markly::Node do
 	
 	it "can walk and set string content" do
 		document.walk do |node|
-			node.string_content = 'world' if node.type == :text && node.string_content == 'there'
+			node.string_content = "world" if node.type == :text && node.string_content == "there"
 		end
 		result = document.to_html
 		expect(result).to be == "<p>Hi <em>world</em>, I am mostly text!</p>\n"
@@ -71,7 +71,7 @@ describe Markly::Node do
 		expect(document.to_html).to be == "<p>Hi there, I am mostly text!</p>\n"
 	end
 	
-	with '#inspect' do
+	with "#inspect" do
 		it "can inspect a node" do
 			expect(document.inspect).to be(:include?, "#<Markly::Node(document)")
 		end

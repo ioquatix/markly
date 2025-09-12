@@ -18,7 +18,7 @@ Copyright, 2018, by Danny Iachini.
 Copyright, 2019-2020, by Tomoya Chiba.  
 Copyright, 2019, by Brett Walker.  
 Copyright, 2020, by Olle Jonsson.  
-Copyright, 2020-2024, by Samuel Williams.  
+Copyright, 2020-2025, by Samuel Williams.  
 Copyright, 2024, by Ross Kaffenberger.  
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

@@ -5,9 +5,9 @@
 # Copyright, 2016-2017, by Yuki Izumi.
 # Copyright, 2017, by Goro Fuji.
 # Copyright, 2018, by Jerry van Leeuwen.
-# Copyright, 2020-2024, by Samuel Williams.
+# Copyright, 2020-2025, by Samuel Williams.
 
-require_relative 'node/inspect'
+require_relative "node/inspect"
 
 module Markly
 	class Node
@@ -32,13 +32,13 @@ module Markly
 		# blk - A {Proc} representing the action to take for each child
 		def walk(&block)
 			return enum_for(:walk) unless block_given?
-
+			
 			yield self
 			each do |child|
 				child.walk(&block)
 			end
 		end
-
+		
 		# Public: Convert the node to an HTML string.
 		#
 		# options - A {Symbol} or {Array of Symbol}s indicating the render options
@@ -46,9 +46,9 @@ module Markly
 		#
 		# Returns a {String}.
 		def to_html(flags: DEFAULT, extensions: [])
-			_render_html(flags, extensions).force_encoding('utf-8')
+			_render_html(flags, extensions).force_encoding("utf-8")
 		end
-
+		
 		# Public: Convert the node to a CommonMark string.
 		#
 		# options - A {Symbol} or {Array of Symbol}s indicating the render options
@@ -56,11 +56,11 @@ module Markly
 		#
 		# Returns a {String}.
 		def to_commonmark(flags: DEFAULT, width: 0)
-			_render_commonmark(flags, width).force_encoding('utf-8')
+			_render_commonmark(flags, width).force_encoding("utf-8")
 		end
-
+		
 		alias to_markdown to_commonmark
-
+		
 		# Public: Convert the node to a plain text string.
 		#
 		# options - A {Symbol} or {Array of Symbol}s indicating the render options
@@ -68,13 +68,13 @@ module Markly
 		#
 		# Returns a {String}.
 		def to_plaintext(flags: DEFAULT, width: 0)
-			_render_plaintext(flags, width).force_encoding('utf-8')
+			_render_plaintext(flags, width).force_encoding("utf-8")
 		end
-
+		
 		# Public: Iterate over the children (if any) of the current pointer.
 		def each
 			return enum_for(:each) unless block_given?
-
+			
 			child = first_child
 			while child
 				next_child = child.next
@@ -179,6 +179,6 @@ module Markly
 			
 			fragment
 		end
-			
+		
 	end
 end

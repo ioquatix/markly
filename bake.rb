@@ -5,9 +5,17 @@
 # Copyright, 2015-2019, by Garen Torikian.
 # Copyright, 2016, by Yuki Izumi.
 # Copyright, 2017, by Ashe Connor.
-# Copyright, 2020-2023, by Samuel Williams.
+# Copyright, 2020-2025, by Samuel Williams.
 
 $LOAD_PATH << ::File.expand_path("ext", __dir__)
+
+# Update the project documentation with the new version number.
+#
+# @parameter version [String] The new version number.
+def after_gem_release_version_increment(version)
+	context["releases:update"].call(version)
+	context["utopia:project:update"].call
+end
 
 def build
 	ext_path = File.expand_path("ext/markly", __dir__)
@@ -27,11 +35,11 @@ def clean
 end
 
 def format
-	system('clang-format -style llvm -i ext/markly/*.c ext/markly/*.h')
+	system("clang-format -style llvm -i ext/markly/*.c ext/markly/*.h")
 end
 
 def benchmark
-	if ENV['FETCH_PROGIT']
+	if ENV["FETCH_PROGIT"]
 		`rm -rf test/progit`
 		`git clone https://github.com/progit/progit.git test/progit`
 		langs = %w[ar az be ca cs de en eo es es-ni fa fi fr hi hu id it ja ko mk nl no-nb pl pt-br ro ru sr th tr uk vi zh zh-tw]
@@ -39,13 +47,13 @@ def benchmark
 			`cat test/progit/#{lang}/*/*.markdown >> test/benchinput.md`
 		end
 	end
-	$LOAD_PATH.unshift 'lib'
-	load 'test/benchmark.rb'
+	$LOAD_PATH.unshift "lib"
+	load "test/benchmark.rb"
 end
 
 def synchronize_upstream
-	require 'build/files'
-	require 'build/files/system'
+	require "build/files"
+	require "build/files/system"
 	
 	root = Build::Files::Path[context.root]
 	ext_markly = root/"ext/markly"

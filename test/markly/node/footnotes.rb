@@ -4,9 +4,9 @@
 # Copyright, 2017, by Ashe Connor.
 # Copyright, 2018, by Michael Camilleri.
 # Copyright, 2019, by Garen Torikian.
-# Copyright, 2020-2023, by Samuel Williams.
+# Copyright, 2020-2025, by Samuel Williams.
 
-require 'markly'
+require "markly"
 
 describe Markly::Node do
 	let(:document) {Markly.parse("Hello[^hi].\n\n[^hi]: Hey!\n", flags: Markly::FOOTNOTES)}

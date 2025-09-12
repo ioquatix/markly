@@ -3,10 +3,10 @@
 # Released under the MIT License.
 # Copyright, 2015-2019, by Garen Torikian.
 # Copyright, 2017, by Yuki Izumi.
-# Copyright, 2020-2023, by Samuel Williams.
+# Copyright, 2020-2025, by Samuel Williams.
 
-require 'markly'
-require 'markdown_spec'
+require "markly"
+require "markdown_spec"
 
 describe Markly do
 	with "Markly::SMART" do

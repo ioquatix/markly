@@ -2,9 +2,9 @@
 
 # Released under the MIT License.
 # Copyright, 2019, by Garen Torikian.
-# Copyright, 2023, by Samuel Williams.
+# Copyright, 2023-2025, by Samuel Williams.
 
-require 'markly'
+require "markly"
 
 describe Markly do
 	let(:document) {Markly.parse(markdown, flags: Markly::SMART)}

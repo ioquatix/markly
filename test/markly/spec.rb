@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 # Released under the MIT License.
-# Copyright, 2023, by Samuel Williams.
+# Copyright, 2023-2025, by Samuel Williams.
 
-require 'markly'
-require 'markdown_spec'
+require "markly"
+require "markdown_spec"
 
-MarkdownSpec.open('spec.txt').each do |testcase|
+MarkdownSpec.open("spec.txt").each do |testcase|
 	next if testcase[:extensions].include?(:disabled)
 	next if testcase[:example] == 617
 	
