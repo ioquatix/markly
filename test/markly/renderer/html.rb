@@ -23,6 +23,46 @@ describe Markly::Renderer::HTML do
 		end
 	end
 	
+	with ".anchor_for" do
+		let(:markdown) {<<~MARKDOWN}
+			# Hello World
+			
+			## Test *Emphasis* & **Bold**
+
+			### Special!@# Characters"}
+		MARKDOWN
+		
+		let(:document) {Markly.parse(markdown)}
+		
+		it "can generate URL-safe anchors from headers" do
+			headers = document.to_a.select { |node| node.type == :header }
+			
+			expect(subject.anchor_for(headers[0])).to be == "hello-world"
+			expect(subject.anchor_for(headers[1])).to be == "test-emphasis-bold"
+			expect(subject.anchor_for(headers[2])).to be == "special-characters"
+		end
+		
+		it "works as a class method" do
+			header = document.first_child
+			expect(Markly::Renderer::HTML.anchor_for(header)).to be == "hello-world"
+		end
+		
+		it "handles edge cases properly" do
+			test_cases = [
+				["# Multiple    Spaces", "multiple-spaces"],
+				["## !@#$%^&*()", ""],
+				["### Leading-and-trailing---hyphens-", "leading-and-trailing-hyphens"],
+				["#### Unicode: Café & Résumé", "unicode-caf-rsum"]
+			]
+			
+			test_cases.each do |markdown, expected|
+				doc = Markly.parse(markdown)
+				header = doc.first_child
+				expect(subject.anchor_for(header)).to be == expected
+			end
+		end
+	end
+	
 	with "multiple tables" do
 		let(:markdown) do
 			<<~MARKDOWN
