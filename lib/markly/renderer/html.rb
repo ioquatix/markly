@@ -45,6 +45,9 @@ module Markly
 				# Replace sequences of whitespace with hyphens
 				text = text.gsub(/\s+/, "-")
 				
+				# Replace periods with hyphens (useful for version numbers like v1.0.0 → v1-0-0)
+				text = text.gsub(/\./, "-")
+				
 				# Remove characters that are not URL-safe for anchors
 				# Keep: letters, numbers, hyphens, underscores
 				# Remove: punctuation, special characters, symbols

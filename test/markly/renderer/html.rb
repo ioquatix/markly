@@ -61,6 +61,39 @@ describe Markly::Renderer::HTML do
 				expect(subject.anchor_for(header)).to be == expected
 			end
 		end
+		
+		it "removes leading and trailing hyphens" do
+			test_cases = [
+				["# ---Leading Hyphens", "leading-hyphens"],
+				["## Trailing Hyphens---", "trailing-hyphens"],
+				["### ---Both Leading and Trailing---", "both-leading-and-trailing"],
+				["#### Multiple   ---   Spaces   ---   Between", "multiple-spaces-between"],
+				["##### (Special) Characters!@# Create Hyphens", "special-characters-create-hyphens"]
+			]
+			
+			test_cases.each do |markdown, expected|
+				doc = Markly.parse(markdown)
+				header = doc.first_child
+				expect(subject.anchor_for(header)).to be == expected
+			end
+		end
+		
+		it "replaces periods with hyphens in anchors" do
+			test_cases = [
+				["# Version 1.0 Release", "version-1-0-release"],
+				["## Method .call() Usage", "method-call-usage"],
+				["### File.txt Processing", "file-txt-processing"],
+				["#### API v2.5.1 Documentation", "api-v2-5-1-documentation"],
+				["##### Math.PI Calculations", "math-pi-calculations"],
+				["###### Dr. Smith's Research", "dr-smiths-research"]
+			]
+			
+			test_cases.each do |markdown, expected|
+				doc = Markly.parse(markdown)
+				header = doc.first_child
+				expect(subject.anchor_for(header)).to be == expected
+			end
+		end
 	end
 	
 	with "multiple tables" do
