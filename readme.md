@@ -10,9 +10,7 @@ strikethroughs, and autolinking.
 ## Motivation
 
 This code base was originally forked from [Commonmarker](https://github.com/gjtorikian/commonmarker) before they
-switched from `cmark-gfm` (C) to `comrak` (Rust). The original implementation provided access to the abstract syntax
-tree (AST), which is useful for building tools on top of Markdown. The Rust implementation does not provide this
-functionality, and so this fork was created to continue to provide these (and more) features.
+switched from `cmark-gfm` (C) to `comrak` (Rust). This fork was created to preserve the original C extension logic and provide alternate features.
 
 ## Usage
 
