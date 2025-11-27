@@ -9,15 +9,18 @@
 # Copyright, 2020-2025, by Samuel Williams.
 
 require_relative "generic"
+require_relative "headings"
 require "cgi"
 
 module Markly
 	module Renderer
 		class HTML < Generic
-			def initialize(ids: false, tight: false, **options)
+			def initialize(ids: false, headings: nil, tight: false, **options)
 				super(**options)
 				
-				@ids = ids
+				# Initialize heading tracker if IDs are enabled
+				@headings = headings || (ids ? Headings.new : nil)
+				
 				@section = nil
 				@tight = tight
 				
@@ -32,8 +35,8 @@ module Markly
 			end
 			
 			def id_for(node)
-				if @ids
-					anchor = self.class.anchor_for(node)
+				if @headings
+					anchor = @headings.anchor_for(node)
 					return " id=\"#{CGI.escape_html anchor}\""
 				end
 			end
@@ -54,7 +57,7 @@ module Markly
 			
 			def header(node)
 				block do
-					if @ids
+					if @headings
 						out("</section>") if @section
 						@section = true
 						out("<section#{id_for(node)}>")
@@ -253,10 +256,10 @@ module Markly
 			end
 			
 			TABLE_CELL_ALIGNMENT = {
-				left: ' align="left"',
-				right: ' align="right"',
-				center: ' align="center"'
-			}.freeze
+						left: ' align="left"',
+						right: ' align="right"',
+						center: ' align="center"'
+					}.freeze
 			
 			def table_cell(node)
 				align = TABLE_CELL_ALIGNMENT.fetch(@alignments[@column_index], "")

@@ -14,3 +14,7 @@ files:
   title: Abstract Syntax Tree
   description: This guide explains how to use Markly's abstract syntax tree (AST)
     to parse and manipulate Markdown documents.
+- path: headings.md
+  title: Headings
+  description: This guide explains how to work with headings in Markly, including
+    extracting them for navigation and handling duplicate heading text.

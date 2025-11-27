@@ -21,6 +21,29 @@ describe Markly::Renderer::HTML do
 		it "can render HTML with ids" do
 			expect(renderer.render(document)).to be == "<section id=\"introduction\"><h1>Introduction</h1>\n<p>Hi <em>there</em></p>\n</section>"
 		end
+		
+		it "generates unique IDs for duplicate headings" do
+			markdown = <<~MARKDOWN
+				## Deployment
+				
+				Content about first deployment.
+				
+				## Deployment
+				
+				Content about second deployment.
+				
+				## Deployment
+				
+				Content about third deployment.
+			MARKDOWN
+			
+			doc = Markly.parse(markdown)
+			html = renderer.render(doc)
+			
+			expect(html).to be(:include?, '<section id="deployment">')
+			expect(html).to be(:include?, '<section id="deployment-2">')
+			expect(html).to be(:include?, '<section id="deployment-3">')
+		end
 	end
 	
 	with ".anchor_for" do
