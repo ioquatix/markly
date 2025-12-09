@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
 		"source_code_uri" => "https://github.com/ioquatix/markly.git",
 	}
 	
-	spec.files = Dir.glob(["{ext,lib}/**/*", "*.md"], File::FNM_DOTMATCH, base: __dir__)
+	spec.files = Dir.glob(["{context,ext,lib}/**/*", "*.md"], File::FNM_DOTMATCH, base: __dir__)
 	spec.require_paths = ["lib"]
 	
 	spec.extensions = ["ext/markly/extconf.rb"]
