@@ -28,7 +28,7 @@ Please see the [project documentation](https://ioquatix.github.io/markly/) for m
 
 Please see the [project releases](https://ioquatix.github.io/markly/releases/index) for all releases.
 
-### Unreleased
+### v0.15.1
 
   - Add agent context.
 
