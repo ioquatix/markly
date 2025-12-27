@@ -270,4 +270,37 @@ describe Markly::Node do
 			expect(fragment.to_markdown).to be == "Hello `World`"
 		end
 	end
+
+	with "#source_position" do
+		it "has valid position for paragraphs" do
+			doc = Markly.parse("Hello\n\nWorld")
+			paragraph = doc.first_child
+			pos = paragraph.source_position
+
+			expect(pos[:start_line]).to be == 1
+			expect(pos[:end_line]).to be >= pos[:start_line]
+		end
+
+		it "has valid position for HTML comments (regression test)" do
+			# HTML blocks on a single line should have end_line >= start_line
+			# Previously, end_line could be less than start_line due to a bug
+			# in the finalize() function in blocks.c
+			doc = Markly.parse("Text\n\n<!-- HTML comment -->\n\nMore text")
+
+			doc.each do |node|
+				pos = node.source_position
+				expect(pos[:end_line]).to be >= pos[:start_line]
+			end
+		end
+
+		it "has correct position for single-line HTML block" do
+			doc = Markly.parse("<!-- comment -->")
+			html_node = doc.first_child
+			pos = html_node.source_position
+
+			expect(html_node.type).to be == :html
+			expect(pos[:start_line]).to be == 1
+			expect(pos[:end_line]).to be == 1
+		end
+	end
 end
