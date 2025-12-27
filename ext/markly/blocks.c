@@ -307,6 +307,10 @@ static cmark_node *finalize(cmark_parser *parser, cmark_node *b) {
       b->end_column -= 1;
   } else {
     b->end_line = parser->line_number - 1;
+    // Ensure end_line is at least start_line (fixes single-line HTML block bug)
+    if (b->end_line < b->start_line) {
+      b->end_line = b->start_line;
+    }
     b->end_column = parser->last_line_length;
   }
 
