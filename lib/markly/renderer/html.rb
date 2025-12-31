@@ -10,7 +10,13 @@
 
 require_relative "generic"
 require_relative "headings"
-require "cgi"
+
+require "cgi/escape"
+
+# Compatibility for older Ruby versions where escape_html alias doesn't exist:
+unless CGI.respond_to?(:escape_html)
+	require "cgi"
+end
 
 module Markly
 	module Renderer
