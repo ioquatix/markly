@@ -2,6 +2,7 @@
 
 # Released under the MIT License.
 # Copyright, 2023-2025, by Samuel Williams.
+# Copyright, 2025, by Peter H. Boling.
 
 require "markly"
 

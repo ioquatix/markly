@@ -38,7 +38,7 @@ document = Markly.parse(markdown)
 headings = Markly::Renderer::Headings.extract(document, min_level: 2, max_level: 3)
 
 headings.each do |heading|
-  puts "#{heading.level}: #{heading.text} (#{heading.anchor})"
+	puts "#{heading.level}: #{heading.text} (#{heading.anchor})"
 end
 
 # Output:
@@ -90,25 +90,24 @@ Subclass `Headings` to implement alternative ID generation strategies:
 
 ``` ruby
 class HierarchicalHeadings < Markly::Renderer::Headings
-  def initialize
-    super
-    @parent_context = []
-  end
-  
-  def anchor_for(node)
-    base = base_anchor_for(node)
-    
-    # Custom logic: could incorporate parent heading context
-    # to generate IDs like "kubernetes-deployment" instead of "deployment-2"
-    
-    if @ids.key?(base)
-      @ids[base] += 1
-      "#{base}-#{@ids[base]}"
-    else
-      @ids[base] = 1
-      base
-    end
-  end
+	def initialize
+		super
+		@parent_context = []
+	end
+	
+	def anchor_for(node)
+		base = base_anchor_for(node)
+		
+		# Custom logic: could incorporate parent heading context to generate IDs like "kubernetes-deployment" instead of "deployment-2"
+		
+		if @ids.key?(base)
+			@ids[base] += 1
+			"#{base}-#{@ids[base]}"
+		else
+			@ids[base] = 1
+			base
+		end
+	end
 end
 
 renderer = Markly::Renderer::HTML.new(headings: HierarchicalHeadings.new)

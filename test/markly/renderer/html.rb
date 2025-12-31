@@ -58,7 +58,7 @@ describe Markly::Renderer::HTML do
 		let(:document) {Markly.parse(markdown)}
 		
 		it "can generate URL-safe anchors from headers" do
-			headers = document.to_a.select {|node| node.type == :header}
+			headers = document.to_a.select{|node| node.type == :header}
 			
 			expect(subject.anchor_for(headers[0])).to be == "hello-world"
 			expect(subject.anchor_for(headers[1])).to be == "test-emphasis-&-bold"

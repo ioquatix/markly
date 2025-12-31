@@ -39,7 +39,7 @@ You can use `walk` or `each` to iterate over nodes:
 <!-- end list -->
 
 ``` ruby
-require 'markly'
+require "markly"
 
 document = Markly.parse("# The site\n\n [GitHub](https://www.github.com)")
 
@@ -80,11 +80,10 @@ class MyHtmlRenderer < Markly::Renderer::HTML
 		super
 		@header_id = 1
 	end
-
+	
 	def header(node)
 		block do
-			out("<h", node.header_level, " id=\"", @header_id, "\">",
-							 :children, "</h", node.header_level, ">")
+			out("<h", node.header_level, " id=\"", @header_id, "\">", :children, "</h", node.header_level, ">")
 			@header_id += 1
 		end
 	end

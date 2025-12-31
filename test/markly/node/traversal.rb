@@ -28,7 +28,7 @@ describe Markly::Node do
 	end
 	
 	it "can select nodes" do
-		nodes = document.first_child.select {|node| node.type == :text}
+		nodes = document.first_child.select{|node| node.type == :text}
 		expect(nodes.first).to be_a(Markly::Node)
 		expect(nodes.map(&:type)).to be == %i[text text]
 	end

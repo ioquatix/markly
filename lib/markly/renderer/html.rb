@@ -262,10 +262,10 @@ module Markly
 			end
 			
 			TABLE_CELL_ALIGNMENT = {
-						left: ' align="left"',
-						right: ' align="right"',
-						center: ' align="center"'
-					}.freeze
+				left: ' align="left"',
+				right: ' align="right"',
+				center: ' align="center"'
+			}.freeze
 			
 			def table_cell(node)
 				align = TABLE_CELL_ALIGNMENT.fetch(@alignments[@column_index], "")

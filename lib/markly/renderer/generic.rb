@@ -26,9 +26,9 @@ module Markly
 			def out(*args)
 				args.each do |arg|
 					if arg == :children
-						@node.each {|child| out(child)}
+						@node.each{|child| out(child)}
 					elsif arg.is_a?(Array)
-						arg.each {|x| render(x)}
+						arg.each{|x| render(x)}
 					elsif arg.is_a?(Node)
 						render(arg)
 					else
@@ -43,7 +43,7 @@ module Markly
 					document(node)
 					@stream.string
 				elsif @in_plain && node.type != :text && node.type != :softbreak
-					node.each {|child| render(child)}
+					node.each{|child| render(child)}
 				else
 					send(node.type, node)
 				end

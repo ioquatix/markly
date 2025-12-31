@@ -6,6 +6,7 @@
 # Copyright, 2017, by Goro Fuji.
 # Copyright, 2018, by Jerry van Leeuwen.
 # Copyright, 2020-2025, by Samuel Williams.
+# Copyright, 2025, by Olle Jonsson.
 
 require_relative "node/inspect"
 

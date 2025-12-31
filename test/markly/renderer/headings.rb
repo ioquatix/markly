@@ -108,7 +108,7 @@ describe Markly::Renderer::Headings do
 		let(:headings) {subject.extract(document)}
 		
 		it "generates unique anchors for nested duplicates" do
-			deployment_headings = headings.select {|h| h.text == "Deployment"}
+			deployment_headings = headings.select{|h| h.text == "Deployment"}
 			
 			expect(deployment_headings.size).to be == 3
 			expect(deployment_headings[0].anchor).to be == "deployment"
