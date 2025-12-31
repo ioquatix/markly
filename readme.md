@@ -11,8 +11,10 @@ strikethroughs, and autolinking.
 
 This code base was originally forked from [Commonmarker](https://github.com/gjtorikian/commonmarker) before they
 switched from `cmark-gfm` (C) to `comrak` (Rust). The original implementation provided access to the abstract syntax
-tree (AST), which is useful for building tools on top of Markdown. The Rust implementation does not provide this
+tree (AST), which is useful for building tools on top of Markdown. The Rust implementation did not provide this
 functionality, and so this fork was created to continue to provide these (and more) features.
+
+It should be noted that `commonmarker` re-introduced AST access, but the original C implementation in this fork is [3-4x faster at processing Markdown into HTML](https://github.com/gjtorikian/commonmarker?tab=readme-ov-file#benchmarks) and has a more advanced HTML generation and AST processing features.
 
 ## Usage
 
