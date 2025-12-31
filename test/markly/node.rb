@@ -270,37 +270,187 @@ describe Markly::Node do
 			expect(fragment.to_markdown).to be == "Hello `World`"
 		end
 	end
-
+	
 	with "#source_position" do
 		it "has valid position for paragraphs" do
 			doc = Markly.parse("Hello\n\nWorld")
 			paragraph = doc.first_child
 			pos = paragraph.source_position
-
+			
 			expect(pos[:start_line]).to be == 1
 			expect(pos[:end_line]).to be >= pos[:start_line]
 		end
-
+		
 		it "has valid position for HTML comments (regression test)" do
 			# HTML blocks on a single line should have end_line >= start_line
 			# Previously, end_line could be less than start_line due to a bug
 			# in the finalize() function in blocks.c
 			doc = Markly.parse("Text\n\n<!-- HTML comment -->\n\nMore text")
-
+			
 			doc.each do |node|
 				pos = node.source_position
 				expect(pos[:end_line]).to be >= pos[:start_line]
 			end
 		end
-
+		
 		it "has correct position for single-line HTML block" do
 			doc = Markly.parse("<!-- comment -->")
 			html_node = doc.first_child
 			pos = html_node.source_position
-
+			
 			expect(html_node.type).to be == :html
 			expect(pos[:start_line]).to be == 1
 			expect(pos[:end_line]).to be == 1
+		end
+		
+		it "has correct position for single-line HTML block without trailing newline" do
+			# Edge case: HTML block at EOF with no trailing newline
+			doc = Markly.parse("<!-- comment -->")
+			html_node = doc.first_child
+			pos = html_node.source_position
+			
+			expect(html_node.type).to be == :html
+			expect(pos[:start_line]).to be == 1
+			expect(pos[:end_line]).to be == 1
+			expect(pos[:end_line]).to be >= pos[:start_line]
+		end
+		
+		it "has correct position for single-line HTML block in middle of document" do
+			# HTML block between paragraphs
+			doc = Markly.parse("Para 1\n\n<!-- comment -->\n\nPara 2")
+			
+			html_node = nil
+			doc.each do |node|
+				html_node = node if node.type == :html
+			end
+			
+			expect(html_node).not.to be_nil
+			pos = html_node.source_position
+			expect(pos[:start_line]).to be == 3
+			expect(pos[:end_line]).to be == 3
+		end
+		
+		it "has correct position for HTML block type 3 (PHP)" do
+			# Test different HTML block type (type 3: <? ... ?>)
+			doc = Markly.parse("<?php echo 'test'; ?>")
+			html_node = doc.first_child
+			pos = html_node.source_position
+			
+			expect(html_node.type).to be == :html
+			expect(pos[:start_line]).to be == 1
+			expect(pos[:end_line]).to be == 1
+		end
+		
+		it "has correct position for HTML block type 4 (declaration)" do
+			# Test HTML declaration (type 4: <!SOMETHING>)
+			doc = Markly.parse("<!DOCTYPE html>")
+			html_node = doc.first_child
+			pos = html_node.source_position
+			
+			expect(html_node.type).to be == :html
+			expect(pos[:start_line]).to be == 1
+			expect(pos[:end_line]).to be == 1
+		end
+		
+		it "has correct position for HTML block type 5 (CDATA)" do
+			# Test CDATA section (type 5: <![CDATA[ ... ]]>)
+			doc = Markly.parse("<![CDATA[some data]]>")
+			html_node = doc.first_child
+			pos = html_node.source_position
+			
+			expect(html_node.type).to be == :html
+			expect(pos[:start_line]).to be == 1
+			expect(pos[:end_line]).to be == 1
+		end
+		
+		it "has correct position for multi-line HTML block" do
+			# Multi-line HTML comment (4 lines total, but ends on line 4)
+			doc = Markly.parse("<!--\nLine 1\nLine 2\n-->")
+			html_node = doc.first_child
+			pos = html_node.source_position
+			
+			expect(html_node.type).to be == :html
+			expect(pos[:start_line]).to be == 1
+			# The block starts on line 1 and the closing --> is on line 4
+			expect(pos[:end_line]).to be >= pos[:start_line]
+			expect(pos[:end_line]).to be >= 3  # At least line 3 or more
+		end
+		
+		it "has correct position for fenced code block" do
+			# Fenced code blocks are another special case that ends on current line
+			doc = Markly.parse("```\ncode\n```")
+			code_block = doc.first_child
+			pos = code_block.source_position
+			
+			expect(code_block.type).to be == :code_block
+			expect(pos[:start_line]).to be == 1
+			expect(pos[:end_line]).to be == 3
+			expect(pos[:end_line]).to be >= pos[:start_line]
+		end
+		
+		it "has correct position for single-line fenced code block" do
+			# Single-line fenced code block
+			doc = Markly.parse("```\n```")
+			code_block = doc.first_child
+			pos = code_block.source_position
+			
+			expect(code_block.type).to be == :code_block
+			expect(pos[:start_line]).to be == 1
+			expect(pos[:end_line]).to be == 2
+		end
+		
+		it "has correct position for setext heading" do
+			# Setext headings are another special case
+			doc = Markly.parse("Heading\n=======")
+			heading = doc.first_child
+			pos = heading.source_position
+			
+			expect(heading.type).to be == :header
+			expect(pos[:start_line]).to be == 1
+			expect(pos[:end_line]).to be == 2
+			expect(pos[:end_line]).to be >= pos[:start_line]
+		end
+		
+		it "has correct position for ATX heading" do
+			# ATX headings follow the regular "ended on previous line" logic
+			doc = Markly.parse("# Heading\n\nNext para")
+			heading = doc.first_child
+			pos = heading.source_position
+			
+			expect(heading.type).to be == :header
+			expect(pos[:start_line]).to be == 1
+			expect(pos[:end_line]).to be == 1
+		end
+		
+		it "ensures all nodes have valid position ranges" do
+			# Comprehensive test: no node should have end_line < start_line
+			markdown = <<~MD
+				# Title
+				
+				Paragraph with text.
+				
+				```ruby
+				code
+				```
+				
+				<!-- comment -->
+				
+				More text.
+				
+				Heading
+				-------
+				
+				<?php echo "test"; ?>
+				
+				Final paragraph.
+			MD
+			
+			doc = Markly.parse(markdown)
+			doc.each do |node|
+				pos = node.source_position
+				# All nodes must have valid ranges where end_line >= start_line
+				expect(pos[:end_line]).to be >= pos[:start_line]
+			end
 		end
 	end
 end

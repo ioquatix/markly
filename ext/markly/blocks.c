@@ -72,6 +72,20 @@ static CMARK_INLINE bool S_is_space_or_tab(char c) {
   return (c == ' ' || c == '\t');
 }
 
+// Returns true if block is being finalized on the same line it ends.
+// This happens for:
+// - Document node (special case)
+// - Fenced code blocks (end on the closing fence line)
+// - Setext headings (end on the underline)
+// - Any block finalized on the same line it started (e.g., single-line HTML blocks)
+static CMARK_INLINE bool S_ends_on_current_line(cmark_parser *parser, cmark_node *b) {
+  return S_type(b) == CMARK_NODE_DOCUMENT ||
+         (S_type(b) == CMARK_NODE_CODE_BLOCK && b->as.code.fenced) ||
+         (S_type(b) == CMARK_NODE_HEADING && b->as.heading.setext) ||
+         // Single-line blocks: finalized on same line they started
+         b->start_line == parser->line_number;
+}
+
 static void S_parser_feed(cmark_parser *parser, const unsigned char *buffer,
                           size_t len, bool eof);
 
@@ -288,17 +302,15 @@ static cmark_node *finalize(cmark_parser *parser, cmark_node *b) {
   bool has_content;
 
   parent = b->parent;
-  assert(b->flags &
-         CMARK_NODE__OPEN); // shouldn't call finalize on closed blocks
+  assert(b->flags & CMARK_NODE__OPEN); // shouldn't call finalize on closed blocks
   b->flags &= ~CMARK_NODE__OPEN;
 
   if (parser->curline.size == 0) {
-    // end of input - line number has not been incremented
+    // end of input - line number has not been incremented:
     b->end_line = parser->line_number;
     b->end_column = parser->last_line_length;
-  } else if (S_type(b) == CMARK_NODE_DOCUMENT ||
-             (S_type(b) == CMARK_NODE_CODE_BLOCK && b->as.code.fenced) ||
-             (S_type(b) == CMARK_NODE_HEADING && b->as.heading.setext)) {
+  } else if (S_ends_on_current_line(parser, b)) {
+    // Block ends on current line (line_number already incremented):
     b->end_line = parser->line_number;
     b->end_column = parser->curline.size;
     if (b->end_column && parser->curline.ptr[b->end_column - 1] == '\n')
@@ -306,11 +318,8 @@ static cmark_node *finalize(cmark_parser *parser, cmark_node *b) {
     if (b->end_column && parser->curline.ptr[b->end_column - 1] == '\r')
       b->end_column -= 1;
   } else {
+    // Block ended on a previous line:
     b->end_line = parser->line_number - 1;
-    // Ensure end_line is at least start_line (fixes single-line HTML block bug)
-    if (b->end_line < b->start_line) {
-      b->end_line = b->start_line;
-    }
     b->end_column = parser->last_line_length;
   }
 
