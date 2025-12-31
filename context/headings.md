@@ -98,8 +98,7 @@ class HierarchicalHeadings < Markly::Renderer::Headings
 	def anchor_for(node)
 		base = base_anchor_for(node)
 		
-		# Custom logic: could incorporate parent heading context
-		# to generate IDs like "kubernetes-deployment" instead of "deployment-2"
+		# Custom logic: could incorporate parent heading context to generate IDs like "kubernetes-deployment" instead of "deployment-2"
 		
 		if @ids.key?(base)
 			@ids[base] += 1
